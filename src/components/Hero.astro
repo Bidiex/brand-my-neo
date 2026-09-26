@@ -14,7 +14,7 @@ import { meta, recaudado, porcentaje, vendidos, spots, cop } from '../data/proye
     <div class="progress" aria-label="Progreso de la recaudación">
       <div class="progress__row">
         <p class="progress__raised"><strong>{cop(recaudado)}</strong> recaudados</p>
-        <p class="progress__goal">meta {cop(meta)} · <b>{porcentaje}%</b></p>
+        <p class="progress__goal">de {cop(meta)} COP<span>·</span><b>{porcentaje}%</b></p>
       </div>
       <div class="progress__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow={porcentaje}>
         <div class="progress__fill" style={`width:${porcentaje}%`}></div>
@@ -30,11 +30,21 @@ import { meta, recaudado, porcentaje, vendidos, spots, cop } from '../data/proye
   .hero__stats i { font-style: normal; margin: 0 8px; opacity: .5; }
   .hero__title { font-size: clamp(32px, 5.2vw, 56px); letter-spacing: -0.04em; }
 
-  .progress { max-width: 400px; margin: 28px auto 0; }
+  .progress { max-width: 440px; margin: 32px auto 0; }
   .progress__row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
-  .progress__row p { margin: 0; font-size: 13px; color: var(--text-2); }
-  .progress__raised strong { font-size: 24px; letter-spacing: -0.03em; color: var(--rose); margin-right: 4px; }
+  .progress__row p { margin: 0; font-size: 15px; color: var(--text-2); }
+  .progress__raised strong {
+    font-size: 30px; font-weight: 700; letter-spacing: -0.035em; line-height: 1;
+    color: var(--rose); margin-right: 6px; font-variant-numeric: tabular-nums;
+  }
+  .progress__goal span { margin: 0 6px; color: var(--line); }
   .progress__goal b { color: var(--rose); font-weight: 600; }
-  .progress__bar { height: 6px; margin-top: 8px; background: var(--blush-soft); border-radius: 99px; overflow: hidden; }
-  .progress__fill { height: 100%; min-width: 6px; background: var(--rose); border-radius: 99px; }
+  .progress__bar {
+    height: 10px; margin-top: 12px; border-radius: 99px; overflow: hidden;
+    background: #ebebef;
+  }
+  .progress__fill {
+    height: 100%; border-radius: 99px;
+    background: linear-gradient(90deg, #d98a9c, var(--rose));
+  }
 </style>

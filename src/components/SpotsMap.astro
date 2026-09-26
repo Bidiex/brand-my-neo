@@ -1,13 +1,7 @@
 ---
-import { spots, LAYOUT, cop, asset } from '../data/proyecto.js';
+import { spots, cop, asset } from '../data/proyecto.js';
 
 const pos = (r) => `left:${r.left}%;top:${r.top}%;width:${r.width}%;height:${r.height}%`;
-const hueco = {
-  left: LAYOUT.hueco.left,
-  top: LAYOUT.filas.media.top,
-  width: LAYOUT.hueco.right - LAYOUT.hueco.left,
-  height: LAYOUT.filas.media.bottom - LAYOUT.filas.media.top,
-};
 
 const niveles = [
   { fila: 'superior', titulo: 'Fila superior', desc: '3 spots grandes, lo primero que se ve al abrir la mochila.' },
@@ -56,10 +50,6 @@ const niveles = [
             </button>
           )
         )}
-
-        <div class="lid__protected" style={pos(hueco)} aria-hidden="true">
-          <span>Zona protegida</span>
-        </div>
       </div>
     </div>
 
@@ -135,18 +125,6 @@ const niveles = [
   }
   .spot--sold:hover .spot__tip, .spot--sold:focus-visible .spot__tip { opacity: 1; }
 
-  .lid__protected {
-    position: absolute; display: flex; align-items: flex-end; justify-content: center;
-    padding-bottom: 0.4cqw;
-    border: max(1px, 0.14cqw) dotted rgba(110, 110, 115, 0.3);
-    border-radius: 1.4cqw;
-    pointer-events: none;
-  }
-  .lid__protected span {
-    font-size: clamp(6px, 0.95cqw, 11px); text-transform: uppercase; letter-spacing: 0.08em;
-    color: rgba(110, 110, 115, 0.7);
-  }
-
   .tiers {
     list-style: none; padding: 0; margin: 40px 0 0;
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
@@ -163,6 +141,6 @@ const niveles = [
     .tiers { grid-template-columns: 1fr; }
   }
   @media (max-width: 480px) {
-    .spot__state, .lid__protected span { display: none; }
+    .spot__state { display: none; }
   }
 </style>

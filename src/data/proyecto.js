@@ -15,9 +15,10 @@ export const LAYOUT = {
   x1: 94,    // borde derecho
   gap: 1.4,  // separación horizontal entre spots
   filas: {
-    superior: { top: 7,    bottom: 34.5 },
+    // superior e inferior miden lo mismo (28.5 %); la de arriba no debe verse más chica que la de abajo, que cuesta menos
+    superior: { top: 6,    bottom: 34.5 },
     media:    { top: 37,   bottom: 59.5 },
-    inferior: { top: 62,   bottom: 93 },
+    inferior: { top: 62,   bottom: 90.5 },
   },
   hueco: { left: 40.5, right: 59.5 }, // zona protegida del logo (fila media)
 };

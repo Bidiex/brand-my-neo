@@ -18,15 +18,11 @@ const niveles = [
   return { ...n, precio: deFila[0].precio, total: deFila.length, libres: deFila.filter((s) => !s.vendido).length };
 });
 ---
-<section class="section section--alt" id="spots">
+<section class="spots" id="spots">
   <div class="container">
-    <div class="center">
-      <span class="eyebrow">La tapa</span>
-      <h2 class="section-title">Diez espacios.<br />Elige el tuyo.</h2>
-      <p class="section-lead">
-        Toca un espacio libre para reservarlo. Tu logo se imprime como sticker y se pega en la MacBook Neo real de Silenia.
-      </p>
-    </div>
+    <p class="spots__hint center">
+      Toca un espacio libre para reservarlo. Tu logo se imprime como sticker y se pega en la MacBook Neo real de Silenia.
+    </p>
 
     <div class="lid-wrap">
       <div class="lid">
@@ -86,7 +82,9 @@ const niveles = [
 </section>
 
 <style>
-  .lid-wrap { max-width: 920px; margin: 56px auto 0; }
+  .spots { padding: 28px 0 80px; background: linear-gradient(var(--bg-photo), var(--bg-alt) 40%); }
+  .spots__hint { max-width: 520px; margin: 0 auto; font-size: 14px; color: var(--text-2); }
+  .lid-wrap { max-width: 920px; margin: 20px auto 0; }
   .lid {
     position: relative;
     container-type: inline-size;
@@ -116,8 +114,8 @@ const niveles = [
     z-index: 2;
     outline: none;
   }
-  .spot__price { font-weight: 600; font-size: clamp(9px, 2.2cqw, 22px); letter-spacing: -0.02em; line-height: 1; }
-  .spot__state { font-size: clamp(7px, 1.25cqw, 13px); text-transform: uppercase; letter-spacing: 0.08em; opacity: .75; line-height: 1; }
+  .spot__price { font-weight: 600; font-size: clamp(9px, 1.9cqw, 18px); letter-spacing: -0.02em; line-height: 1; }
+  .spot__state { font-size: clamp(7px, 1.1cqw, 11px); text-transform: uppercase; letter-spacing: 0.08em; opacity: .75; line-height: 1; }
 
   .spot--sold {
     background: rgba(255, 255, 255, 0.9);
@@ -152,16 +150,16 @@ const niveles = [
   }
 
   .tiers {
-    list-style: none; padding: 0; margin: 56px 0 0;
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+    list-style: none; padding: 0; margin: 40px 0 0;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
   }
-  .tier { background: #fff; border-radius: var(--radius); padding: 24px; }
+  .tier { background: #fff; border-radius: var(--radius); padding: 18px 20px; }
   .tier__head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
-  .tier h3 { font-size: 19px; letter-spacing: -0.02em; }
+  .tier h3 { font-size: 16px; letter-spacing: -0.02em; }
   .tier__price { font-weight: 600; color: var(--rose); }
-  .tier p { margin: 10px 0 0; color: var(--text-2); font-size: 15px; }
+  .tier p { margin: 8px 0 0; color: var(--text-2); font-size: 13px; }
   .tier .tier__stock { color: var(--text); font-weight: 500; }
-  .note { margin-top: 22px; color: var(--text-2); font-size: 14px; }
+  .note { margin-top: 18px; color: var(--text-2); font-size: 12px; }
 
   @media (max-width: 834px) {
     .tiers { grid-template-columns: 1fr; }

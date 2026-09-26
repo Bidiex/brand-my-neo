@@ -5,13 +5,9 @@ import { meta, recaudado, porcentaje, vendidos, spots, cop, asset } from '../dat
   <div class="container center">
     <span class="eyebrow">Brand My Neo</span>
     <h1 class="hero__title">Ella quiere empezar<br />a estudiar.</h1>
-    <p class="section-lead">
+    <p class="section-lead hero__lead">
       Le estoy comprando a Silenia su primera MacBook vendiendo espacios de sticker en la tapa. Consigue el tuyo.
     </p>
-    <div class="hero__ctas">
-      <a class="btn" href="#spots">Elige tu spot</a>
-      <a class="btn btn--ghost" href="#historia">Lee la historia ›</a>
-    </div>
 
     <div class="progress" aria-label="Progreso de la recaudación">
       <div class="progress__numbers">
@@ -30,28 +26,23 @@ import { meta, recaudado, porcentaje, vendidos, spots, cop, asset } from '../dat
       <p class="progress__pct">{porcentaje}% de la meta</p>
     </div>
   </div>
-  <div class="hero__img">
-    <img src={asset('/img/neo-lineup.jpg')} alt="MacBook Neo en sus cuatro colores, con el modelo Blush (rosa) al frente" width="1960" height="1308" fetchpriority="high" />
-  </div>
 </section>
 
 <style>
-  .hero { padding: 90px 0 0; background: var(--bg-photo); overflow: hidden; }
-  .hero__title { font-size: clamp(44px, 8vw, 88px); letter-spacing: -0.045em; }
-  .hero__ctas { display: flex; gap: 12px; justify-content: center; margin-top: 30px; flex-wrap: wrap; }
+  .hero { padding: 64px 0 0; background: var(--bg-photo); }
+  .hero__title { font-size: clamp(32px, 5.2vw, 56px); letter-spacing: -0.04em; }
 
   .progress {
-    max-width: 560px; margin: 48px auto 0; text-align: left;
-    background: #fff; border-radius: var(--radius); padding: 24px 26px;
+    max-width: 480px; margin: 28px auto 0; text-align: left;
+    background: #fff; border-radius: var(--radius); padding: 16px 20px;
     box-shadow: 0 2px 24px rgba(0, 0, 0, 0.06);
   }
   .progress__numbers { display: flex; justify-content: space-between; gap: 16px; align-items: flex-end; }
-  .progress__numbers strong { display: block; font-size: clamp(26px, 4vw, 34px); letter-spacing: -0.03em; line-height: 1.1; }
-  .progress__numbers span { color: var(--text-2); font-size: 14px; }
+  .progress__numbers strong { display: block; font-size: clamp(20px, 2.6vw, 24px); letter-spacing: -0.03em; line-height: 1.1; }
+  .progress__numbers span { color: var(--text-2); font-size: 12px; }
   .progress__right { text-align: right; }
-  .progress__bar { height: 10px; background: var(--blush-soft); border-radius: 99px; margin-top: 18px; overflow: hidden; }
+  .progress__bar { height: 8px; background: var(--blush-soft); border-radius: 99px; margin-top: 12px; overflow: hidden; }
   .progress__fill { height: 100%; min-width: 10px; background: linear-gradient(90deg, #e3a9b3, var(--rose)); border-radius: 99px; }
-  .progress__pct { margin: 10px 0 0; font-size: 14px; color: var(--text-2); }
+  .progress__pct { margin: 8px 0 0; font-size: 12px; color: var(--text-2); }
 
-  .hero__img { max-width: 1100px; margin: 40px auto 0; }
 </style>

@@ -24,7 +24,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font);
-  font-size: 17px;
+  font-size: 15px;
   line-height: 1.47;
   letter-spacing: -0.022em;
   -webkit-font-smoothing: antialiased;
@@ -38,27 +38,27 @@ h1, h2, h3 { margin: 0; letter-spacing: -0.03em; line-height: 1.08; font-weight:
 
 .container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 22px; }
 
-.section { padding: 110px 0; }
+.section { padding: 80px 0; }
 .section--alt { background: var(--bg-alt); }
 
 .eyebrow {
   display: block;
   color: var(--rose);
-  font-size: 17px;
+  font-size: 14px;
   font-weight: 600;
   letter-spacing: -0.01em;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
-.section-title { font-size: clamp(34px, 5.5vw, 56px); }
-.section-lead { font-size: clamp(19px, 2.2vw, 24px); color: var(--text-2); max-width: 680px; margin: 18px 0 0; line-height: 1.35; }
+.section-title { font-size: clamp(26px, 3.8vw, 40px); }
+.section-lead { font-size: clamp(15px, 1.6vw, 18px); color: var(--text-2); max-width: 600px; margin: 12px 0 0; line-height: 1.35; }
 .center { text-align: center; }
 .center .section-lead { margin-left: auto; margin-right: auto; }
 
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 6px;
   border: 0; border-radius: 980px; cursor: pointer;
-  font: inherit; font-size: 17px; font-weight: 500;
-  padding: 12px 24px;
+  font: inherit; font-size: 15px; font-weight: 500;
+  padding: 10px 20px;
   background: var(--rose); color: #fff;
   transition: background .2s;
 }
@@ -75,8 +75,8 @@ h1, h2, h3 { margin: 0; letter-spacing: -0.03em; line-height: 1.08; font-weight:
 :focus-visible { outline: 2px solid var(--rose); outline-offset: 3px; }
 
 @media (max-width: 734px) {
-  body { font-size: 16px; }
-  .section { padding: 72px 0; }
+  body { font-size: 14px; }
+  .section { padding: 56px 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {

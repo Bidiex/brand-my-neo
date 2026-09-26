@@ -1,0 +1,90 @@
+---
+import fs from 'node:fs';
+import { INSTAGRAM_URL, INSTAGRAM_HANDLE, asset } from '../data/proyecto.js';
+
+interface Props {
+  variant?: 'compact' | 'card';
+}
+const { variant = 'compact' } = Astro.props;
+
+// Coloca la foto en public/img/silenia.png (o .jpg) y se usará como avatar; si no, se muestran sus iniciales.
+const foto = ['silenia.png', 'silenia.jpg'].find((f) => fs.existsSync(new URL(`../../public/img/${f}`, import.meta.url)));
+const NOMBRE = 'Silenia Camargo';
+---
+{variant === 'compact' ? (
+  <div class="perfil">
+    <span class="avatar">
+      {foto ? <img src={asset(`/img/${foto}`)} alt="" width="44" height="44" /> : 'SC'}
+    </span>
+    <div class="perfil__info">
+      <p class="perfil__name">{NOMBRE} <a href={INSTAGRAM_URL} target="_blank" rel="noopener">{INSTAGRAM_HANDLE}</a></p>
+      <p class="perfil__sub">La futura dueña de esta tapa</p>
+    </div>
+    <a class="icon-btn" href={INSTAGRAM_URL} target="_blank" rel="noopener" aria-label={`Instagram de ${NOMBRE}`}>
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg>
+    </a>
+  </div>
+) : (
+  <aside class="card">
+    <p class="card__title">A quién le estás ayudando</p>
+    <div class="card__head">
+      <span class="avatar avatar--lg">
+        {foto ? <img src={asset(`/img/${foto}`)} alt="" width="56" height="56" /> : 'SC'}
+      </span>
+      <div>
+        <p class="perfil__name">{NOMBRE}</p>
+        <a class="card__handle" href={INSTAGRAM_URL} target="_blank" rel="noopener">{INSTAGRAM_HANDLE}</a>
+        <a class="pill" href={INSTAGRAM_URL} target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg>
+          Instagram
+        </a>
+      </div>
+    </div>
+    <blockquote class="card__quote">Va a empezar a estudiar y hoy no tiene un computador.</blockquote>
+  </aside>
+)}
+
+<style>
+  .avatar {
+    flex: none; width: 44px; height: 44px; border-radius: 50%; overflow: hidden;
+    display: grid; place-items: center;
+    background: linear-gradient(135deg, var(--blush), #d98a9c);
+    color: #fff; font-size: 14px; font-weight: 600; letter-spacing: 0.02em;
+  }
+  .avatar--lg { width: 56px; height: 56px; font-size: 17px; }
+  .avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+  .perfil { display: inline-flex; align-items: center; gap: 12px; margin-top: 28px; text-align: left; }
+  .perfil__info p { margin: 0; }
+  .perfil__name { margin: 0; font-size: 15px; font-weight: 600; color: var(--text); }
+  .perfil__name a { font-weight: 400; }
+  .perfil__sub { font-size: 13px; color: var(--text-2); }
+  .icon-btn {
+    flex: none; width: 36px; height: 36px; border-radius: 50%;
+    display: grid; place-items: center;
+    border: 1px solid var(--line); color: var(--rose);
+    transition: border-color .2s, background .2s;
+  }
+  .icon-btn:hover { border-color: var(--rose); background: var(--blush-soft); }
+
+  .card {
+    margin-top: 28px; padding: 20px 22px;
+    border: 1px solid var(--line); border-radius: var(--radius);
+  }
+  .card__title { margin: 0 0 14px; font-size: 14px; font-weight: 500; color: var(--text); }
+  .card__head { display: flex; gap: 14px; align-items: flex-start; }
+  .card__head .perfil__name { font-size: 16px; }
+  .card__handle { display: block; font-size: 14px; margin-top: 2px; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px; margin-top: 10px;
+    padding: 5px 12px; border: 1px solid var(--line); border-radius: 99px;
+    font-size: 13px; color: var(--text);
+    transition: border-color .2s;
+  }
+  .pill svg { color: var(--rose); }
+  .pill:hover { border-color: var(--rose); text-decoration: none; }
+  .card__quote {
+    margin: 16px 0 0; padding-left: 12px; border-left: 2px solid var(--line);
+    font-size: 15px; color: var(--text);
+  }
+</style>

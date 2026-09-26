@@ -1,4 +1,5 @@
 ---
+import Perfil from './Perfil.astro';
 import { meta, recaudado, porcentaje, vendidos, spots, cop } from '../data/proyecto.js';
 ---
 <section class="hero" id="top">
@@ -20,6 +21,8 @@ import { meta, recaudado, porcentaje, vendidos, spots, cop } from '../data/proye
         <div class="progress__fill" style={`width:${porcentaje}%`}></div>
       </div>
     </div>
+
+    <Perfil />
   </div>
 </section>
 

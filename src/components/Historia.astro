@@ -1,6 +1,7 @@
 ---
 import fs from 'node:fs';
-import { INSTAGRAM_URL, INSTAGRAM_HANDLE, asset } from '../data/proyecto.js';
+import Perfil from './Perfil.astro';
+import { asset } from '../data/proyecto.js';
 
 // Coloca la foto en public/img/silenia.png (o .jpg) y aparecerá automáticamente.
 const fotoSilenia = ['silenia.png', 'silenia.jpg'].find((f) => fs.existsSync(new URL(`../../public/img/${f}`, import.meta.url)));
@@ -30,9 +31,7 @@ const fotoSilenia = ['silenia.png', 'silenia.jpg'].find((f) => fs.existsSync(new
         Diez espacios. Un objetivo: $4.500.000 COP. Cuando se complete, Silenia tiene su MacBook Neo — y tu marca queda ahí,
         en la tapa, contándole a todo el que la vea cómo empezó.
       </p>
-      <p class="historia__ig">
-        Sigue el proceso en Instagram: <a href={INSTAGRAM_URL} target="_blank" rel="noopener">{INSTAGRAM_HANDLE}</a>
-      </p>
+      <Perfil variant="card" />
     </div>
   </div>
 </section>
@@ -43,7 +42,6 @@ const fotoSilenia = ['silenia.png', 'silenia.jpg'].find((f) => fs.existsSync(new
   .historia__text .section-title { margin-bottom: 18px; }
   .historia__text p { font-size: 16px; color: var(--text-2); margin: 0 0 14px; }
   .historia__text p:first-of-type { color: var(--text); }
-  .historia__ig { font-size: 14px !important; }
   @media (max-width: 834px) {
     .historia { grid-template-columns: 1fr; gap: 40px; }
   }

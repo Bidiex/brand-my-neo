@@ -6,7 +6,7 @@ export const INSTAGRAM_URL = 'https://www.instagram.com/sileniacamargom_';
 export const INSTAGRAM_HANDLE = '@sileniacamargom_';
 
 /*
- * Geometría del grid sobre la imagen /img/neo-lid.jpg (1369×965), en % de la imagen.
+ * Geometría del grid sobre la imagen /img/neo-lid.png (1369×965), en % de la imagen.
  * Si cambias la foto de la tapa, recalibra estos valores.
  * El logo de Apple ocupa aprox. x 44–56 %, y 38–58 %.
  */

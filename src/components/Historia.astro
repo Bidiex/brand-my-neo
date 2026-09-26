@@ -2,16 +2,16 @@
 import fs from 'node:fs';
 import { INSTAGRAM_URL, INSTAGRAM_HANDLE, asset } from '../data/proyecto.js';
 
-// Coloca la foto en public/img/silenia.jpg y aparecerá automáticamente.
-const tieneFoto = fs.existsSync(new URL('../../public/img/silenia.jpg', import.meta.url));
+// Coloca la foto en public/img/silenia.png (o .jpg) y aparecerá automáticamente.
+const fotoSilenia = ['silenia.png', 'silenia.jpg'].find((f) => fs.existsSync(new URL(`../../public/img/${f}`, import.meta.url)));
 ---
 <section class="section" id="historia">
   <div class="container historia">
     <div class="historia__media">
-      {tieneFoto ? (
-        <img src={asset('/img/silenia.jpg')} alt="Silenia Camargo" loading="lazy" />
+      {fotoSilenia ? (
+        <img src={asset(`/img/${fotoSilenia}`)} alt="Silenia Camargo" loading="lazy" />
       ) : (
-        <img class="is-product" src={asset("/img/neo-lifestyle.jpg")} alt="MacBook Neo Blush abierta mostrando apps de estudio" loading="lazy" />
+        <img class="is-product" src={asset("/img/neo-lifestyle.png")} width="1369" height="965" alt="MacBook Neo Blush abierta mostrando apps de estudio" loading="lazy" />
       )}
     </div>
     <div class="historia__text">

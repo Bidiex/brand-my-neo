@@ -1,0 +1,56 @@
+---
+import { vendidos, cop, asset } from '../data/proyecto.js';
+---
+<section class="section" id="auspiciadores">
+  <div class="container center">
+    <span class="eyebrow">Auspiciadores</span>
+    <h2 class="section-title">Quienes ya están en la tapa.</h2>
+
+    {vendidos.length === 0 ? (
+      <div class="empty">
+        <p>Todavía no hay nadie aquí.<br />El primer logo en la tapa puede ser el tuyo.</p>
+        <a class="btn" href="#spots">Consigue un spot</a>
+      </div>
+    ) : (
+      <ul class="sponsors">
+        {vendidos.map((s) => {
+          const Tag = s.linkUrl ? 'a' : 'div';
+          return (
+            <li>
+              <Tag class="sponsor" href={s.linkUrl || undefined} target={s.linkUrl ? '_blank' : undefined} rel={s.linkUrl ? 'noopener sponsored' : undefined}>
+                <div class="sponsor__logo">
+                  {s.logoUrl ? <img src={asset(s.logoUrl)} alt={s.nombreAuspiciador} loading="lazy" /> : <span>{s.nombreAuspiciador}</span>}
+                </div>
+                <strong>{s.nombreAuspiciador}</strong>
+                <span class="sponsor__meta">{s.nombre} · {cop(s.precio)}</span>
+              </Tag>
+            </li>
+          );
+        })}
+      </ul>
+    )}
+  </div>
+</section>
+
+<style>
+  .empty {
+    margin: 44px auto 0; max-width: 520px; padding: 44px 28px;
+    border: 1.5px dashed var(--blush); border-radius: 24px;
+  }
+  .empty p { font-size: 19px; color: var(--text-2); margin: 0 0 22px; }
+
+  .sponsors {
+    list-style: none; padding: 0; margin: 48px 0 0;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 18px;
+  }
+  .sponsor {
+    display: flex; flex-direction: column; align-items: center; gap: 6px; height: 100%;
+    padding: 22px; border-radius: var(--radius); background: var(--bg-alt); color: var(--text);
+    transition: transform .2s;
+  }
+  a.sponsor:hover { text-decoration: none; transform: translateY(-3px); }
+  .sponsor__logo { height: 80px; width: 100%; display: grid; place-items: center; margin-bottom: 8px; }
+  .sponsor__logo img { max-height: 80px; max-width: 100%; object-fit: contain; }
+  .sponsor__logo span { font-weight: 600; font-size: 22px; }
+  .sponsor__meta { font-size: 13px; color: var(--text-2); }
+</style>

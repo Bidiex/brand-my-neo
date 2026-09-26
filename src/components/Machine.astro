@@ -1,0 +1,54 @@
+---
+import { asset } from '../data/proyecto.js';
+
+const specs = [
+  { k: 'Chip', v: 'Apple A18 Pro', d: 'CPU de 6 núcleos, GPU de 5 núcleos, Neural Engine de 16 núcleos.' },
+  { k: 'Pantalla', v: 'Liquid Retina 13"', d: '2408 × 1506, 500 nits, recubrimiento antirreflejo.' },
+  { k: 'Batería', v: 'Hasta 16 horas', d: 'Un día entero de clases sin buscar enchufe.' },
+  { k: 'Memoria', v: '8 GB unificada', d: 'SSD de 256 GB o 512 GB (el de 512 GB incluye Touch ID).' },
+  { k: 'Diseño', v: '1,23 kg', d: '1,27 × 29,75 × 20,64 cm. Sin ventilador: completamente silenciosa.' },
+  { k: 'Conexiones', v: '2 × USB‑C', d: 'Uno USB 3 con salida a monitor, otro USB 2. Jack de audífonos, Wi‑Fi 6E y Bluetooth 6.' },
+];
+---
+<section class="section" id="la-maquina">
+  <div class="container">
+    <div class="center">
+      <span class="eyebrow">La máquina</span>
+      <h2 class="section-title">MacBook Neo. En Blush.</h2>
+      <p class="section-lead">
+        Lanzada por Apple en marzo de 2026. Con Magic Keyboard a juego con el color del equipo — ese rosa que Silenia lleva tiempo mirando.
+      </p>
+    </div>
+
+    <img class="machine__img" src={asset('/img/neo-blush.jpg')} alt="MacBook Neo en Blush vista desde arriba y de perfil" width="1960" height="1308" loading="lazy" />
+
+    <dl class="specs">
+      {specs.map((s) => (
+        <div class="spec">
+          <dt>{s.k}</dt>
+          <dd><strong>{s.v}</strong>{s.d}</dd>
+        </div>
+      ))}
+    </dl>
+
+    <p class="center machine__link">
+      <a href="https://www.apple.com/co/macbook-neo/" target="_blank" rel="noopener">Ver la MacBook Neo en apple.com ›</a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .machine__img { width: 100%; max-width: 820px; margin: 40px auto 0; }
+  .specs {
+    margin: 40px 0 0;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    border-top: 1px solid var(--line);
+  }
+  .spec { padding: 26px 22px 26px 0; border-bottom: 1px solid var(--line); }
+  .spec dt { font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-2); }
+  .spec dd { margin: 8px 0 0; color: var(--text-2); font-size: 15px; }
+  .spec dd strong { display: block; color: var(--text); font-size: 24px; letter-spacing: -0.03em; margin-bottom: 4px; }
+  .machine__link { margin-top: 36px; }
+  @media (max-width: 834px) { .specs { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .specs { grid-template-columns: 1fr; } }
+</style>

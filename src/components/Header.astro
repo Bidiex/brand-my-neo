@@ -1,0 +1,36 @@
+---
+---
+<header class="header">
+  <div class="container header__inner">
+    <a class="wordmark" href="#top" aria-label="Brand My Neo, inicio">Brand My <span>Neo</span></a>
+    <nav class="nav" aria-label="Secciones">
+      <a href="#spots">Spots</a>
+      <a href="#como-funciona">Cómo funciona</a>
+      <a href="#la-maquina">La máquina</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn header__cta" href="#spots">Consigue un spot</a>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  .header__inner { display: flex; align-items: center; gap: 28px; height: 52px; }
+  .wordmark { color: var(--text); font-weight: 600; font-size: 19px; letter-spacing: -0.02em; white-space: nowrap; }
+  .wordmark span { color: var(--rose); }
+  .wordmark:hover { text-decoration: none; }
+  .nav { display: flex; gap: 26px; margin-left: auto; }
+  .nav a { color: var(--text); font-size: 13px; opacity: .8; }
+  .nav a:hover { opacity: 1; text-decoration: none; }
+  .header__cta { font-size: 13px; padding: 6px 14px; }
+  @media (max-width: 734px) {
+    .nav { display: none; }
+    .header__cta { margin-left: auto; }
+  }
+</style>

@@ -1,0 +1,85 @@
+:root {
+  --text: #1d1d1f;
+  --text-2: #6e6e73;
+  --bg: #ffffff;
+  --bg-alt: #f5f5f7;
+  --bg-photo: #fafafc;
+  --line: #d2d2d7;
+  --blush: #e8c9c8;
+  --blush-soft: #f6e9e8;
+  --rose: #b4546a;
+  --rose-hover: #9c4459;
+  --ok: #2f8a4f;
+  --radius: 18px;
+  --maxw: 1024px;
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 17px;
+  line-height: 1.47;
+  letter-spacing: -0.022em;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+a { color: var(--rose); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+h1, h2, h3 { margin: 0; letter-spacing: -0.03em; line-height: 1.08; font-weight: 600; }
+
+.container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 22px; }
+
+.section { padding: 110px 0; }
+.section--alt { background: var(--bg-alt); }
+
+.eyebrow {
+  display: block;
+  color: var(--rose);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
+}
+.section-title { font-size: clamp(34px, 5.5vw, 56px); }
+.section-lead { font-size: clamp(19px, 2.2vw, 24px); color: var(--text-2); max-width: 680px; margin: 18px 0 0; line-height: 1.35; }
+.center { text-align: center; }
+.center .section-lead { margin-left: auto; margin-right: auto; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  border: 0; border-radius: 980px; cursor: pointer;
+  font: inherit; font-size: 17px; font-weight: 500;
+  padding: 12px 24px;
+  background: var(--rose); color: #fff;
+  transition: background .2s;
+}
+.btn:hover { background: var(--rose-hover); text-decoration: none; }
+.btn:disabled { opacity: .6; cursor: default; }
+.btn--ghost { background: transparent; color: var(--rose); padding-left: 8px; padding-right: 8px; }
+.btn--ghost:hover { background: transparent; text-decoration: underline; }
+
+.visually-hidden {
+  position: absolute !important; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+:focus-visible { outline: 2px solid var(--rose); outline-offset: 3px; }
+
+@media (max-width: 734px) {
+  body { font-size: 16px; }
+  .section { padding: 72px 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; animation: none !important; }
+}

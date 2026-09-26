@@ -1,0 +1,18 @@
+{
+  "meta": 4500000,
+  "recaudadoManual": null,
+  "spots": [
+    { "id": "S1", "fila": "superior", "posicion": 0, "precio": 630000, "estado": "disponible", "nombreAuspiciador": null, "logoUrl": null, "linkUrl": null },
+    { "id": "S2", "fila": "superior", "posicion": 1, "precio": 630000, "estado": "disponible", "nombreAuspiciador": null, "logoUrl": null, "linkUrl": null },
+    { "id": "S3", "fila": "superior", "posicion": 2, "precio": 630000, "estado": "disponible", "nombreAuspiciador": null, "logoUrl": null, "linkUrl": null },
+
+    { "id": "M1", "fila": "media", "posicion": 0, "precio": 300000, "estado": "disponible", "nombreAuspiciador": null, "logoUrl": null, "linkUrl": null },
+    { "id": "M2", "fila": "media", "posicion": 1, "precio": 300000, "estado": "disponible", "nombreAuspiciador": null, "logoUrl": null, "linkUrl": null },
+    { "id": "M3", "fila": "media", "posicion": 2, "precio": 300000, "estado": "disponible", "nombreAuspiciador": null, "logoUrl": null, "linkUrl": null },
+    { "id": "M4", "fila": "media", "posicion": 3, "precio": 300000, "estado": "disponible", "nombreAuspiciador": null, "logoUrl": null, "linkUrl": null },
+
+    { "id": "I1", "fila": "inferior", "posicion": 0, "precio": 470000, "estado": "disponible", "nombreAuspiciador": null, "logoUrl": null, "linkUrl": null },
+    { "id": "I2", "fila": "inferior", "posicion": 1, "precio": 470000, "estado": "disponible", "nombreAuspiciador": null, "logoUrl": null, "linkUrl": null },
+    { "id": "I3", "fila": "inferior", "posicion": 2, "precio": 470000, "estado": "disponible", "nombreAuspiciador": null, "logoUrl": null, "linkUrl": null }
+  ]
+}

@@ -1,0 +1,172 @@
+---
+import { spots, LAYOUT, cop, asset } from '../data/proyecto.js';
+
+const pos = (r) => `left:${r.left}%;top:${r.top}%;width:${r.width}%;height:${r.height}%`;
+const hueco = {
+  left: LAYOUT.hueco.left,
+  top: LAYOUT.filas.media.top,
+  width: LAYOUT.hueco.right - LAYOUT.hueco.left,
+  height: LAYOUT.filas.media.bottom - LAYOUT.filas.media.top,
+};
+
+const niveles = [
+  { fila: 'superior', titulo: 'Fila superior', desc: '3 spots grandes, lo primero que se ve al abrir la mochila.' },
+  { fila: 'media', titulo: 'Fila media', desc: '4 spots flanqueando el logo, justo en el centro de la tapa.' },
+  { fila: 'inferior', titulo: 'Fila inferior', desc: '3 spots grandes, cerca de la bisagra.' },
+].map((n) => {
+  const deFila = spots.filter((s) => s.fila === n.fila);
+  return { ...n, precio: deFila[0].precio, total: deFila.length, libres: deFila.filter((s) => !s.vendido).length };
+});
+---
+<section class="section section--alt" id="spots">
+  <div class="container">
+    <div class="center">
+      <span class="eyebrow">La tapa</span>
+      <h2 class="section-title">Diez espacios.<br />Elige el tuyo.</h2>
+      <p class="section-lead">
+        Toca un espacio libre para reservarlo. Tu logo se imprime como sticker y se pega en la MacBook Neo real de Silenia.
+      </p>
+    </div>
+
+    <div class="lid-wrap">
+      <div class="lid">
+        <img class="lid__img" src={asset('/img/neo-lid.jpg')} alt="Tapa de la MacBook Neo en color Blush" width="1369" height="965" />
+
+        {spots.map((s) =>
+          s.vendido ? (
+            <a
+              class="spot spot--sold"
+              style={pos(s.rect)}
+              href={s.linkUrl || undefined}
+              target="_blank"
+              rel="noopener sponsored"
+              aria-label={`${s.nombre}: ${s.nombreAuspiciador}`}
+            >
+              {s.logoUrl ? <img src={asset(s.logoUrl)} alt="" loading="lazy" /> : <span class="spot__name">{s.nombreAuspiciador}</span>}
+              <span class="spot__tip">{s.nombreAuspiciador}</span>
+            </a>
+          ) : (
+            <button
+              type="button"
+              class="spot"
+              style={pos(s.rect)}
+              data-spot-id={s.id}
+              data-spot-nombre={s.nombre}
+              data-spot-precio={s.precio}
+              aria-label={`${s.nombre}, ${cop(s.precio)} COP, disponible`}
+            >
+              <span class="spot__price">{cop(s.precio)}</span>
+              <span class="spot__state">Disponible</span>
+            </button>
+          )
+        )}
+
+        <div class="lid__protected" style={pos(hueco)} aria-hidden="true">
+          <span>Zona protegida</span>
+        </div>
+      </div>
+    </div>
+
+    <ul class="tiers">
+      {niveles.map((n) => (
+        <li class="tier">
+          <div class="tier__head">
+            <h3>{n.titulo}</h3>
+            <span class="tier__price">{cop(n.precio)}</span>
+          </div>
+          <p>{n.desc}</p>
+          <p class="tier__stock">
+            {n.libres > 0 ? `${n.libres} de ${n.total} disponibles` : 'Agotado'}
+          </p>
+        </li>
+      ))}
+    </ul>
+    <p class="note center">Precios en pesos colombianos (COP). El logo de Apple queda libre: no se vende.</p>
+  </div>
+</section>
+
+<style>
+  .lid-wrap { max-width: 920px; margin: 56px auto 0; }
+  .lid {
+    position: relative;
+    container-type: inline-size;
+    border-radius: 3%;
+    background: var(--bg-photo);
+    box-shadow: 0 30px 60px -30px rgba(120, 60, 70, 0.35);
+    user-select: none;
+  }
+  .lid__img { width: 100%; height: auto; border-radius: 3%; }
+
+  .spot {
+    position: absolute;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.3cqw;
+    padding: 0; margin: 0;
+    font: inherit; color: var(--rose);
+    background: rgba(255, 255, 255, 0.16);
+    border: max(1px, 0.18cqw) dashed rgba(180, 84, 106, 0.5);
+    border-radius: 1.4cqw;
+    cursor: pointer;
+    transition: background .2s, border-color .2s, transform .2s, box-shadow .2s;
+  }
+  .spot:hover, .spot:focus-visible {
+    background: rgba(255, 255, 255, 0.62);
+    border-style: solid; border-color: var(--rose);
+    transform: translateY(-0.3cqw);
+    box-shadow: 0 1.2cqw 2.6cqw -1cqw rgba(120, 50, 65, 0.4);
+    z-index: 2;
+    outline: none;
+  }
+  .spot__price { font-weight: 600; font-size: clamp(9px, 2.2cqw, 22px); letter-spacing: -0.02em; line-height: 1; }
+  .spot__state { font-size: clamp(7px, 1.25cqw, 13px); text-transform: uppercase; letter-spacing: 0.08em; opacity: .75; line-height: 1; }
+
+  .spot--sold {
+    background: rgba(255, 255, 255, 0.9);
+    border: 0;
+    box-shadow: 0 0.4cqw 1.2cqw rgba(0, 0, 0, 0.12);
+    padding: 1.2cqw;
+    color: var(--text);
+    cursor: default;
+  }
+  .spot--sold[href] { cursor: pointer; }
+  .spot--sold:hover { text-decoration: none; }
+  .spot--sold img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .spot__name { font-weight: 600; font-size: clamp(9px, 2cqw, 20px); text-align: center; }
+  .spot__tip {
+    position: absolute; bottom: calc(100% + 0.8cqw); left: 50%; transform: translateX(-50%);
+    background: var(--text); color: #fff; font-size: 12px; white-space: nowrap;
+    padding: 4px 10px; border-radius: 8px; pointer-events: none;
+    opacity: 0; transition: opacity .15s;
+  }
+  .spot--sold:hover .spot__tip, .spot--sold:focus-visible .spot__tip { opacity: 1; }
+
+  .lid__protected {
+    position: absolute; display: flex; align-items: flex-end; justify-content: center;
+    padding-bottom: 0.4cqw;
+    border: max(1px, 0.14cqw) dotted rgba(110, 110, 115, 0.3);
+    border-radius: 1.4cqw;
+    pointer-events: none;
+  }
+  .lid__protected span {
+    font-size: clamp(6px, 0.95cqw, 11px); text-transform: uppercase; letter-spacing: 0.08em;
+    color: rgba(110, 110, 115, 0.7);
+  }
+
+  .tiers {
+    list-style: none; padding: 0; margin: 56px 0 0;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+  }
+  .tier { background: #fff; border-radius: var(--radius); padding: 24px; }
+  .tier__head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .tier h3 { font-size: 19px; letter-spacing: -0.02em; }
+  .tier__price { font-weight: 600; color: var(--rose); }
+  .tier p { margin: 10px 0 0; color: var(--text-2); font-size: 15px; }
+  .tier .tier__stock { color: var(--text); font-weight: 500; }
+  .note { margin-top: 22px; color: var(--text-2); font-size: 14px; }
+
+  @media (max-width: 834px) {
+    .tiers { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .spot__state, .lid__protected span { display: none; }
+  }
+</style>

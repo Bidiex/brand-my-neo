@@ -1,0 +1,33 @@
+---
+const faqs = [
+  { q: '¿Esto es real?', a: 'Sí. La MacBook Neo Blush se compra con lo recaudado, y cada logo aprobado se imprime como sticker y se pega en la tapa real.' },
+  { q: '¿Por qué esta laptop?', a: 'Silenia va a empezar a estudiar y hoy no tiene computador. La MacBook Neo en Blush es la que lleva tiempo mirando.' },
+  { q: '¿Qué recibo?', a: 'Tu logo como sticker físico en la tapa y un espacio en esta página con enlace a tu sitio o red social.' },
+  { q: '¿Cómo pago?', a: 'Por Nequi, a precio fijo. Luego envías el formulario con el comprobante y tu logo.' },
+  { q: '¿Hay reembolsos?', a: 'Los pagos por Nequi no se reembolsan automáticamente. Si hay un problema con tu reserva, escríbeme y lo resolvemos caso a caso.' },
+  { q: '¿Aceptan cualquier logo?', a: 'Cada logo se aprueba manualmente. Me reservo el derecho de rechazar contenido ofensivo o inapropiado; en ese caso te contacto para cambiarlo o devolver el pago.' },
+];
+---
+<section class="section section--alt" id="faq">
+  <div class="container faq">
+    <h2 class="section-title center">Preguntas frecuentes.</h2>
+    <div class="faq__list">
+      {faqs.map((f) => (
+        <details>
+          <summary>{f.q}</summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq__list { max-width: 760px; margin: 48px auto 0; }
+  details { border-bottom: 1px solid var(--line); }
+  summary { cursor: pointer; list-style: none; padding: 22px 0; font-size: 20px; font-weight: 600; display: flex; justify-content: space-between; gap: 16px; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: '+'; color: var(--rose); font-weight: 400; font-size: 26px; line-height: 1; }
+  details[open] summary::after { content: '−'; }
+  details p { margin: 0 0 22px; color: var(--text-2); }
+</style>

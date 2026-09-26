@@ -1,0 +1,30 @@
+---
+import '../styles/global.css';
+import { asset } from '../data/proyecto.js';
+
+const title = 'Brand My Neo — La primera MacBook de Silenia';
+const description = 'Le estoy comprando a Silenia su primera MacBook vendiendo espacios de sticker en la tapa. Consigue el tuyo.';
+const ogImage = new URL(asset('/img/neo-lid.jpg'), Astro.site).href;
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="icon" type="image/svg+xml" href={asset('/favicon.svg')} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

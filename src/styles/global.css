@@ -39,7 +39,6 @@ h1, h2, h3 { margin: 0; letter-spacing: -0.03em; line-height: 1.08; font-weight:
 .container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 22px; }
 
 .section { padding: 80px 0; }
-.section--alt { background: var(--bg-alt); }
 
 .eyebrow {
   display: block;

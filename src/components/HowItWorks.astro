@@ -7,7 +7,7 @@ const pasos = [
   { n: '03', titulo: 'Tu sticker, en la tapa', texto: 'Confirmo el pago, imprimo tu logo como sticker y lo pego en la MacBook Neo de Silenia. También aparece aquí, con link a tu sitio.' },
 ];
 ---
-<section class="section section--alt" id="como-funciona">
+<section class="section" id="como-funciona">
   <div class="container">
     <div class="center">
       <span class="eyebrow">Cómo funciona</span>
@@ -30,7 +30,7 @@ const pasos = [
     list-style: none; padding: 0; margin: 40px 0 0;
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
   }
-  .paso { background: #fff; border-radius: 24px; padding: 32px 28px; }
+  .paso { background: var(--bg-alt); border-radius: 24px; padding: 32px 28px; }
   .paso__n { display: block; font-size: 32px; font-weight: 700; letter-spacing: -0.04em; color: var(--blush); line-height: 1; margin-bottom: 14px; }
   .paso h3 { font-size: 19px; }
   .paso p { color: var(--text-2); margin: 8px 0 0; }

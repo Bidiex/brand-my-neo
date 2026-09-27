@@ -27,7 +27,7 @@ Landing page personal, estilo Apple, que recauda fondos vendiendo "espacios de s
 - **Datos de los spots**: un único archivo `spots.json` (o `.ts` tipado) en el repo, que Vosstra edita manualmente para marcar un spot como vendido, actualizar el total recaudado, o cambiar el logo/link del auspiciador. Astro lo lee en build time (no hace falta que sea dinámico en runtime).
 
 ### Por qué no se necesita backend
-Confirmado con Vosstra: no hay pasarela de pago (se usa Nequi manual), no hay subasta en vivo (precio fijo), y el estado de los spots se actualiza manualmente por Vosstra editando el JSON y volviendo a hacer deploy (o editando directo en GitHub y dejando que el deploy automático de GH Pages lo publique). Esto significa que **todo el sitio puede ser 100% estático**.
+Confirmado con Vosstra: no hay pasarela de pago (se usa transferencia manual por Bre-B), no hay subasta en vivo (precio fijo), y el estado de los spots se actualiza manualmente por Vosstra editando el JSON y volviendo a hacer deploy (o editando directo en GitHub y dejando que el deploy automático de GH Pages lo publique). Esto significa que **todo el sitio puede ser 100% estático**.
 
 ---
 
@@ -35,7 +35,7 @@ Confirmado con Vosstra: no hay pasarela de pago (se usa Nequi manual), no hay su
 
 - **Nombre del proyecto**: Brand My Neo
 - **Meta de recaudación**: $4.500.000 COP (coincide exactamente con la suma de los 10 spots — ver 3.1)
-- **Dato de pago Nequi**: 3008836295
+- **Dato de pago**: llave Bre-B **3008836295** (el celular de Silenia; antes era el número de Nequi, ver sección 7.0)
 - **Número de spots**: 10 (más el logo de Apple, que queda como zona protegida sin vender, igual que en el original)
 
 ### 3.1 Layout y precios de los spots (definido por Vosstra)
@@ -88,7 +88,7 @@ Réplica simplificada de brandmymac.com — una sola página larga (single-page)
 2. **Hero** — titular "Ella quiere empezar a estudiar." (ver draft completo en sección 3.2), contador de recaudado vs. meta ($4.500.000 COP)
 3. **Grid interactivo de spots** — imagen real de la tapa de la MacBook Neo rosa con overlay de 10 zonas clickeables en 3 filas, logo de Apple protegido en el centro (ver sección 3.1 para precios exactos y sección 6.2 para implementación). A diferencia del original, no hay toggle Tapa/Interior salvo que se decida vender spots de interior/accesorios también (ver checklist, sección 9)
 4. **Grid de auspiciadores** — logos de quienes ya compraron spot, con su precio pagado y link a su sitio (mismo patrón que el original)
-5. **Cómo funciona** — 3 pasos (elige spot → paga por Nequi y sube comprobante → tu sticker se pone en la laptop), adaptado del original
+5. **Cómo funciona** — 3 pasos (elige spot → paga por Bre-B y sube comprobante → tu sticker se pone en la laptop), adaptado del original
 6. **La máquina** — specs reales de la MacBook Neo (ver sección 5), con link a Apple
 7. **Preguntas frecuentes** — adaptadas del original (¿es real?, ¿por qué esta laptop?, ¿qué recibo?, ¿cómo pago?, ¿puedo hacer esto con mi propia laptop? — esta última se puede omitir, es un plug de otro producto de Vincent)
 8. **Footer** — links, aviso legal de que no está afiliado con Apple (importante, ver sección 8)
@@ -169,14 +169,24 @@ Esto es lo que hace visualmente reconocible a Brand My Mac: sobre la foto real d
 
 Confirmado con Vosstra — flujo de 4 pasos:
 
+### 7.0 Método de pago: Bre-B
+
+Se paga por **Bre-B**, el sistema de pagos inmediatos del Banco de la República (reemplaza a Nequi como método de pago del sitio). Contexto:
+- Permite transferir desde cualquier banco o billetera colombiana (Nequi, Daviplata, Bancolombia, etc.) hacia cualquier otra, en segundos, 24/7.
+- En lugar de un número de cuenta se usa una **llave**: celular, documento, correo o un código alfanumérico. La llave del proyecto es el celular de Silenia, **3008836295** (el mismo número que tenía en Nequi).
+- Antes de confirmar, la app de quien paga muestra el nombre del titular de la llave; el modal lo aprovecha para dar confianza ("verás el nombre de la titular, Silenia Camargo").
+- Sigue siendo solo para cuentas colombianas: un auspiciador del extranjero no puede pagar por Bre-B.
+- **Logo**: no se usa el sello Bre-B en el sitio. Según el Manual de Identidad Visual del Banco de la República, el sello está reservado para las entidades participantes del sistema y los archivos oficiales no son públicos (se piden a pagosinmediatos@banrep.gov.co). Usarlo en una página personal podría sugerir afiliación.
+- Pendiente de Vosstra: confirmar que el celular esté registrado como llave Bre-B en la app del banco o billetera de Silenia.
+
 ### 7.1 En el sitio
 El usuario ve un spot disponible → click → modal o sección con:
 - Datos del spot (fila, precio en COP)
-- Instrucciones de pago por Nequi: **número 3008836295**
+- Instrucciones de pago por Bre-B: **llave 3008836295** (celular), con botón para copiarla
 - Un único formulario con:
   - Nombre / marca del auspiciador
   - Link de su sitio/red social
-  - Adjuntar comprobante de pago Nequi (imagen)
+  - Adjuntar comprobante de la transferencia Bre-B (imagen)
   - Adjuntar su logo (imagen, idealmente PNG/SVG con fondo transparente)
   - Email de contacto
 
@@ -184,7 +194,7 @@ El usuario ve un spot disponible → click → modal o sección con:
 El formulario se envía a través de un servicio externo (no hay backend propio) que reenvía todo por email a Vosstra, incluyendo los archivos adjuntos.
 
 ### 7.3 Proveedor del formulario: Web3Forms (confirmado)
-Servicio gratuito, sin backend, soporta adjuntos de archivos (comprobante Nequi + logo). Requiere una Access Key gratuita (se genera en web3forms.com con el email de Vosstra). Claude Code debe:
+Servicio gratuito, sin backend, soporta adjuntos de archivos (comprobante de la transferencia + logo). Requiere una Access Key gratuita (se genera en web3forms.com con el email de Vosstra). Claude Code debe:
 - Implementar el envío del formulario vía Web3Forms (endpoint `https://api.web3forms.com/submit`, método POST, incluyendo los campos + los dos archivos adjuntos).
 - Dejar la Access Key como variable fácil de ubicar/reemplazar en el código (ej. constante al inicio del componente del formulario), para que Vosstra la configure con su propia key antes de publicar.
 - No hardcodear una key de ejemplo que parezca real — dejar un placeholder claro tipo `"TU_ACCESS_KEY_AQUI"`.
@@ -205,20 +215,21 @@ Igual que el original, el sitio debe dejar explícito en el footer:
 > "Brand My Neo no está afiliado, respaldado ni patrocinado por Apple Inc. MacBook Neo y Mac son marcas de Apple Inc."
 
 Además, considerar (Vosstra puede decidir el nivel de detalle):
-- Una nota corta de que los pagos por Nequi no son reembolsables automáticamente (a diferencia del depósito reembolsable del original, que aplicaba a su sistema de subasta) — al ser precio fijo, conviene ser claro sobre política de cambios/cancelaciones antes de lanzar.
+- Una nota corta de que los pagos por Bre-B no son reembolsables automáticamente (a diferencia del depósito reembolsable del original, que aplicaba a su sistema de subasta) — al ser precio fijo, conviene ser claro sobre política de cambios/cancelaciones antes de lanzar.
 - Aviso de que la aprobación de cada auspiciador es manual y a discreción de Vosstra (mismo patrón que el original: "me reservo el derecho de aprobar cada logo").
 
 ---
 
 ## 9. Decisiones pendientes — checklist antes de pasar esto a Claude Code
 
-Ya resueltas: nombre del proyecto (Brand My Neo), meta ($4.500.000 COP), dato de pago Nequi, número y precios de los 10 spots, historia/copy de referencia (sección 3.2), proveedor de formulario (Web3Forms), CSS plano, imágenes oficiales de la laptop (sección 6.1).
+Ya resueltas: nombre del proyecto (Brand My Neo), meta ($4.500.000 COP), dato de pago (llave Bre-B), número y precios de los 10 spots, historia/copy de referencia (sección 3.2), proveedor de formulario (Web3Forms), CSS plano, imágenes oficiales de la laptop (sección 6.1).
 
 Falta resolver (menor, no bloquea empezar a desarrollar):
 
 - [ ] **Access Key de Web3Forms** — generar en web3forms.com con el email de Vosstra antes de conectar el formulario en producción
 - [ ] **Logo/wordmark de "Brand My Neo"** — puede lanzarse con tipografía simple y añadirse un logo diseñado después
-- [ ] **Foto de Silenia** para la sección "por qué esto" — Vosstra la sube manualmente desde su Instagram u otra fuente propia
+- [ ] **Foto de Silenia** para la sección "por qué esto" — Vosstra la sube manualmente desde su Instagram u otra fuente propia. (La foto de perfil de Instagram ya se usa en los avatares: `public/img/avatar-silenia.jpg`.)
+- [ ] **Confirmar la llave Bre-B** — que el celular 3008836295 esté registrado como llave en la app del banco o billetera de Silenia
 - [ ] **Copy final definitivo** del hero, FAQ y "cómo funciona" — la sección 3.2 da un draft usable; Vosstra puede ajustarlo antes de publicar
 - [ ] **¿Se venden también spots de interior/accesorios (cargador) como el original, o los 10 spots del grid de la tapa son el alcance completo del proyecto?** — el grid de 3 filas de la sección 3.1 ya suma exactamente la meta, así que un interior/accesorios adicional sería dinero extra sobre la meta, no parte de ella. Definir si eso se incluye desde el lanzamiento o se deja como "fase 2" si la tapa se vende completa.
 
@@ -234,3 +245,12 @@ Para que Claude Code no añada complejidad de más:
 - ❌ Actualización en tiempo real del estado de spots entre visitantes
 - ❌ Página de "Leaderboard" o "Replay" separadas (opcional para v2)
 - ❌ Sistema de reembolsos automáticos (no aplica, no hay depósito reembolsable en el modelo de precio fijo)
+
+---
+
+## 11. Idioma y moneda (añadido después del brief)
+
+- **Inglés**: el sitio tiene una versión en inglés en `/en/` (Astro i18n); el español sigue en `/`. Cada componente guarda sus textos en un objeto `{ es, en }` y elige con `getLang(Astro)` (`src/i18n.js`).
+- **USD**: un menú "idioma y moneda" en el header permite ver todos los precios en dólares. La conversión usa la tasa del día (open.er-api.com, con caché de 12 h y una tasa de respaldo en `src/scripts/currency.ts`). Los precios se marcan con el componente `<Money>`.
+- **El pago sigue siendo en COP**: con USD activo, el modal muestra el precio en COP y el equivalente aproximado en USD.
+- Los correos de reserva llegan con el nombre del spot en español y un campo `idioma` con el idioma del visitante.

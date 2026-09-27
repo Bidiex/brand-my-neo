@@ -51,7 +51,6 @@ function spots() {
     .from('.spot', { autoAlpha: 0, duration: 0.5, stagger: { each: 0.05, from: 'center' } }, 0.55)
     .from('.spot > span:not(.spot__tip)', { y: 8, duration: 0.5, stagger: { each: 0.05, from: 'center' } }, 0.55);
 
-  reveal('.tier', { stagger: 0.1 });
   reveal('.spots .note');
 }
 

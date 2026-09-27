@@ -9,12 +9,6 @@ const t = {
     hint: 'Toca un espacio libre para reservarlo. Tu logo se imprime como sticker y se pega en mi MacBook Neo real.',
     alt: 'Tapa de la MacBook Neo en color Blush',
     available: 'Disponible', availableAria: 'disponible',
-    tiers: {
-      superior: ['Fila superior', '3 spots grandes, lo primero que se ve al abrir la mochila.'],
-      media: ['Fila media', '4 spots flanqueando el logo, justo en el centro de la tapa.'],
-      inferior: ['Fila inferior', '3 spots grandes, cerca de la bisagra.'],
-    },
-    stock: (libres, total) => `${libres} de ${total} disponibles`, soldOut: 'Agotado',
     noteCOP: 'Precios en pesos colombianos (COP).',
     noteUSD: 'Precios aproximados en dólares; el pago se hace en pesos colombianos (COP).',
     noteLogo: 'El logo de Apple queda libre: no se vende.',
@@ -23,12 +17,6 @@ const t = {
     hint: 'Tap a free spot to reserve it. Your logo is printed as a sticker and placed on my real MacBook Neo.',
     alt: 'MacBook Neo lid in Blush',
     available: 'Available', availableAria: 'available',
-    tiers: {
-      superior: ['Top row', '3 large spots, the first thing you see when it comes out of the backpack.'],
-      media: ['Middle row', '4 spots flanking the logo, right in the center of the lid.'],
-      inferior: ['Bottom row', '3 large spots, close to the hinge.'],
-    },
-    stock: (libres, total) => `${libres} of ${total} available`, soldOut: 'Sold out',
     noteCOP: 'Prices in Colombian pesos (COP).',
     noteUSD: 'Approximate prices in US dollars; payment is made in Colombian pesos (COP).',
     noteLogo: 'The Apple logo stays clear: it’s not for sale.',
@@ -36,11 +24,6 @@ const t = {
 }[lang];
 
 const pos = (r) => `left:${r.left}%;top:${r.top}%;width:${r.width}%;height:${r.height}%`;
-
-const niveles = ['superior', 'media', 'inferior'].map((fila) => ({ fila, titulo: t.tiers[fila][0], desc: t.tiers[fila][1] })).map((n) => {
-  const deFila = spots.filter((s) => s.fila === n.fila);
-  return { ...n, precio: deFila[0].precio, total: deFila.length, libres: deFila.filter((s) => !s.vendido).length };
-});
 ---
 <section class="spots" id="spots">
   <div class="container">
@@ -84,20 +67,6 @@ const niveles = ['superior', 'media', 'inferior'].map((fila) => ({ fila, titulo:
       </div>
     </div>
 
-    <ul class="tiers">
-      {niveles.map((n) => (
-        <li class="tier">
-          <div class="tier__head">
-            <h3>{n.titulo}</h3>
-            <span class="tier__price"><Money value={n.precio} /></span>
-          </div>
-          <p>{n.desc}</p>
-          <p class="tier__stock">
-            {n.libres > 0 ? t.stock(n.libres, n.total) : t.soldOut}
-          </p>
-        </li>
-      ))}
-    </ul>
     <p class="note center"><span data-cur="COP">{t.noteCOP}</span><span data-cur="USD">{t.noteUSD}</span> {t.noteLogo}</p>
   </div>
 </section>
@@ -156,21 +125,8 @@ const niveles = ['superior', 'media', 'inferior'].map((fila) => ({ fila, titulo:
   }
   .spot--sold:hover .spot__tip, .spot--sold:focus-visible .spot__tip { opacity: 1; }
 
-  .tiers {
-    list-style: none; padding: 0; margin: 40px 0 0;
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
-  }
-  .tier { background: var(--bg-alt); border-radius: var(--radius); padding: 18px 20px; }
-  .tier__head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
-  .tier h3 { font-size: 16px; letter-spacing: -0.02em; }
-  .tier__price { font-weight: 600; color: var(--rose); }
-  .tier p { margin: 8px 0 0; color: var(--text-2); font-size: 13px; }
-  .tier .tier__stock { color: var(--text); font-weight: 500; }
-  .note { margin-top: 18px; color: var(--text-2); font-size: 12px; }
+  .note { margin-top: 28px; color: var(--text-2); font-size: 12px; }
 
-  @media (max-width: 834px) {
-    .tiers { grid-template-columns: 1fr; }
-  }
   @media (max-width: 480px) {
     .spot__state { display: none; }
   }

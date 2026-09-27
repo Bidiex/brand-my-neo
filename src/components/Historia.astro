@@ -52,8 +52,8 @@ const fotoSilenia = ['silenia.png', 'silenia.jpg'].find((f) => fs.existsSync(new
   .historia { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
   .historia__media img { width: 100%; height: auto; object-fit: contain; border-radius: 28px; background: transparent; }
   .historia__text .section-title { margin-bottom: 18px; }
-  .historia__text p { font-size: 16px; color: var(--text-2); margin: 0 0 14px; }
-  .historia__text p:first-of-type { color: var(--text); }
+  /* un solo color para todo el texto de la historia (antes el primer párrafo era negro y el resto gris) */
+  .historia__text p { font-size: 16px; color: var(--text); margin: 0 0 14px; }
   @media (max-width: 834px) {
     .historia { grid-template-columns: 1fr; gap: 40px; }
   }

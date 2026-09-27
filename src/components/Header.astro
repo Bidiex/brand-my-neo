@@ -25,7 +25,7 @@ const langs = [
 ---
 <header class="header">
   <div class="container header__inner">
-    <a class="wordmark" href="#top" aria-label={t.home}>Brand My <span>Neo</span></a>
+    <a class="wordmark" href="#top" aria-label={t.home}><img class="wordmark__logo" src={asset('/img/logo-brandmyneo.png')} alt="" width="26" height="26" />Brand My <span>Neo</span></a>
     <nav class="nav" aria-label={t.sections}>
       {anchors.map((href, i) => <a href={href}>{t.nav[i]}</a>)}
     </nav>
@@ -92,7 +92,8 @@ const langs = [
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   }
   .header__inner { display: flex; align-items: center; gap: 28px; height: 52px; }
-  .wordmark { color: var(--text); font-weight: 600; font-size: 16px; letter-spacing: -0.02em; white-space: nowrap; }
+  .wordmark { display: inline-flex; align-items: center; gap: 8px; color: var(--text); font-weight: 600; font-size: 16px; letter-spacing: -0.02em; white-space: nowrap; }
+  .wordmark__logo { width: 26px; height: 26px; flex: none; }
   .wordmark span { color: var(--rose); }
   .wordmark:hover { text-decoration: none; }
   .nav { display: flex; gap: 26px; margin-left: auto; }

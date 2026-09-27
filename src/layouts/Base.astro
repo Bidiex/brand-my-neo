@@ -25,7 +25,9 @@ const url = (l) => new URL(asset(homePath(l)), Astro.site).href;
     <title>{t.title}</title>
     <meta name="description" content={t.description} />
     <meta name="theme-color" content="#ffffff" />
-    <link rel="icon" type="image/svg+xml" href={asset('/favicon.svg')} />
+    <link rel="icon" type="image/png" sizes="32x32" href={asset('/favicon-32.png')} />
+    <link rel="icon" type="image/png" sizes="192x192" href={asset('/favicon-192.png')} />
+    <link rel="apple-touch-icon" href={asset('/apple-touch-icon.png')} />
     <link rel="canonical" href={url(lang)} />
     <link rel="alternate" hreflang="es" href={url('es')} />
     <link rel="alternate" hreflang="en" href={url('en')} />

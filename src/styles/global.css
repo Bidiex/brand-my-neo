@@ -19,6 +19,23 @@
 
 html { scroll-behavior: smooth; scroll-padding-top: 64px; }
 
+/* Scrollbars finos con el tono de la marca, en vez de los nativos del navegador */
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--blush);
+  border: 3px solid transparent;
+  border-radius: 99px;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover { background-color: var(--rose); }
+::-webkit-scrollbar-corner { background: transparent; }
+
+/* Firefox (Chrome ≥121 ignora ::-webkit-scrollbar si se define scrollbar-color) */
+@supports not selector(::-webkit-scrollbar) {
+  * { scrollbar-width: thin; scrollbar-color: var(--blush) transparent; }
+}
+
 body {
   margin: 0;
   background: var(--bg);

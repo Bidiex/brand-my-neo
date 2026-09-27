@@ -1,17 +1,32 @@
 ---
 import { NEQUI } from '../data/proyecto.js';
+import { getLang } from '../i18n.js';
 
-const pasos = [
-  { n: '01', titulo: 'Elige tu spot', texto: 'Escoge un espacio libre en la tapa. Cada fila tiene su precio fijo: sin pujas, sin sorpresas.' },
-  { n: '02', titulo: 'Paga por Nequi', texto: `Transfiere el valor del spot al ${NEQUI} y envía el formulario con el comprobante y tu logo.` },
-  { n: '03', titulo: 'Tu sticker, en la tapa', texto: 'Confirmo el pago, imprimo tu logo como sticker y lo pego en la MacBook Neo de Silenia. También aparece aquí, con link a tu sitio.' },
-];
+const t = {
+  es: {
+    eyebrow: 'Cómo funciona', title: 'Tres pasos. Así de simple.',
+    pasos: [
+      ['Elige tu spot', 'Escoge un espacio libre en la tapa. Cada fila tiene su precio fijo: sin pujas, sin sorpresas.'],
+      ['Paga por Nequi', `Transfiere el valor del spot al ${NEQUI} y envía el formulario con el comprobante y tu logo.`],
+      ['Tu sticker, en la tapa', 'Confirmo el pago, imprimo tu logo como sticker y lo pego en la MacBook Neo de Silenia. También aparece aquí, con link a tu sitio.'],
+    ],
+  },
+  en: {
+    eyebrow: 'How it works', title: 'Three steps. That simple.',
+    pasos: [
+      ['Pick your spot', 'Choose a free spot on the lid. Each row has a fixed price: no bidding, no surprises.'],
+      ['Pay with Nequi', `Send the spot price in Colombian pesos to Nequi ${NEQUI} (a Colombian payment app) and submit the form with the receipt and your logo.`],
+      ['Your sticker, on the lid', 'I confirm the payment, print your logo as a sticker and put it on Silenia’s MacBook Neo. It also shows up here, linking to your site.'],
+    ],
+  },
+}[getLang(Astro)];
+const pasos = t.pasos.map(([titulo, texto], i) => ({ n: `0${i + 1}`, titulo, texto }));
 ---
 <section class="section" id="como-funciona">
   <div class="container">
     <div class="center">
-      <span class="eyebrow">Cómo funciona</span>
-      <h2 class="section-title">Tres pasos. Así de simple.</h2>
+      <span class="eyebrow">{t.eyebrow}</span>
+      <h2 class="section-title">{t.title}</h2>
     </div>
     <ol class="pasos">
       {pasos.map((p) => (

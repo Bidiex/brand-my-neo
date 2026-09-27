@@ -1,0 +1,12 @@
+---
+// Precio que el selector de moneda puede mostrar en COP o USD (ver src/scripts/currency.ts).
+// El HTML sale en COP; si el visitante eligió USD, el script lo reescribe al cargar.
+import { cop } from '../data/proyecto.js';
+
+interface Props {
+  value: number;      // valor en COP
+  code?: boolean;     // añade " COP" al final cuando se muestra en pesos
+}
+const { value, code = false } = Astro.props;
+---
+<span class="money" data-cop={value} data-code={code ? 'true' : undefined}>{cop(value)}{code ? ' COP' : ''}</span>

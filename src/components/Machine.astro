@@ -1,7 +1,9 @@
 ---
 import { asset } from '../data/proyecto.js';
+import { getLang } from '../i18n.js';
 
-const specs = [
+const lang = getLang(Astro);
+const specsEs = [
   { k: 'Chip', v: 'Apple A18 Pro', d: 'CPU de 6 núcleos, GPU de 5 núcleos, Neural Engine de 16 núcleos.' },
   { k: 'Pantalla', v: 'Liquid Retina 13"', d: '2408 × 1506, 500 nits, recubrimiento antirreflejo.' },
   { k: 'Batería', v: 'Hasta 16 horas', d: 'Un día entero de clases sin buscar enchufe.' },
@@ -9,18 +11,39 @@ const specs = [
   { k: 'Diseño', v: '1,23 kg', d: '1,27 × 29,75 × 20,64 cm. Sin ventilador: completamente silenciosa.' },
   { k: 'Conexiones', v: '2 × USB‑C', d: 'Uno USB 3 con salida a monitor, otro USB 2. Jack de audífonos, Wi‑Fi 6E y Bluetooth 6.' },
 ];
+const specsEn = [
+  { k: 'Chip', v: 'Apple A18 Pro', d: '6‑core CPU, 5‑core GPU, 16‑core Neural Engine.' },
+  { k: 'Display', v: '13" Liquid Retina', d: '2408 × 1506, 500 nits, anti‑reflective coating.' },
+  { k: 'Battery', v: 'Up to 16 hours', d: 'A full day of classes without hunting for an outlet.' },
+  { k: 'Memory', v: '8 GB unified', d: '256 GB or 512 GB SSD (the 512 GB model includes Touch ID).' },
+  { k: 'Design', v: '1.23 kg', d: '1.27 × 29.75 × 20.64 cm. Fanless: completely silent.' },
+  { k: 'Ports', v: '2 × USB‑C', d: 'One USB 3 with display output, one USB 2. Headphone jack, Wi‑Fi 6E and Bluetooth 6.' },
+];
+const t = {
+  es: {
+    specs: specsEs, eyebrow: 'La máquina', title: 'MacBook Neo. En Blush.',
+    lead: 'Lanzada por Apple en marzo de 2026. Con Magic Keyboard a juego con el color del equipo — ese rosa que Silenia lleva tiempo mirando.',
+    alt: 'MacBook Neo en Blush vista desde arriba y de perfil',
+    link: 'Ver la MacBook Neo en apple.com ›', href: 'https://www.apple.com/co/macbook-neo/',
+  },
+  en: {
+    specs: specsEn, eyebrow: 'The machine', title: 'MacBook Neo. In Blush.',
+    lead: 'Launched by Apple in March 2026. With a Magic Keyboard that matches the color — the pink Silenia has had her eye on for a while.',
+    alt: 'MacBook Neo in Blush seen from above and from the side',
+    link: 'See MacBook Neo on apple.com ›', href: 'https://www.apple.com/macbook-neo/',
+  },
+}[lang];
+const specs = t.specs;
 ---
 <section class="section" id="la-maquina">
   <div class="container">
     <div class="center">
-      <span class="eyebrow">La máquina</span>
-      <h2 class="section-title">MacBook Neo. En Blush.</h2>
-      <p class="section-lead">
-        Lanzada por Apple en marzo de 2026. Con Magic Keyboard a juego con el color del equipo — ese rosa que Silenia lleva tiempo mirando.
-      </p>
+      <span class="eyebrow">{t.eyebrow}</span>
+      <h2 class="section-title">{t.title}</h2>
+      <p class="section-lead">{t.lead}</p>
     </div>
 
-    <img class="machine__img" src={asset('/img/neo-blush.png')} alt="MacBook Neo en Blush vista desde arriba y de perfil" width="1369" height="965" loading="lazy" />
+    <img class="machine__img" src={asset('/img/neo-blush.png')} alt={t.alt} width="1369" height="965" loading="lazy" />
 
     <dl class="specs">
       {specs.map((s) => (
@@ -32,7 +55,7 @@ const specs = [
     </dl>
 
     <p class="center machine__link">
-      <a href="https://www.apple.com/co/macbook-neo/" target="_blank" rel="noopener">Ver la MacBook Neo en apple.com ›</a>
+      <a href={t.href} target="_blank" rel="noopener">{t.link}</a>
     </p>
   </div>
 </section>

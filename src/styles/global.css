@@ -82,3 +82,7 @@ h1, h2, h3 { margin: 0; letter-spacing: -0.03em; line-height: 1.08; font-weight:
   html { scroll-behavior: auto; }
   * { transition: none !important; animation: none !important; }
 }
+
+/* Textos que dependen de la moneda elegida (ver src/scripts/currency.ts) */
+html:not([data-currency="USD"]) [data-cur="USD"],
+html[data-currency="USD"] [data-cur="COP"] { display: none; }

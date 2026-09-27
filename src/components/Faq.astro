@@ -1,5 +1,7 @@
 ---
-const faqs = [
+import { getLang } from '../i18n.js';
+
+const faqsEs = [
   { q: '¿Esto es real?', a: 'Sí. La MacBook Neo Blush se compra con lo recaudado, y cada logo aprobado se imprime como sticker y se pega en la tapa real.' },
   { q: '¿Por qué esta laptop?', a: 'Silenia va a empezar a estudiar y hoy no tiene computador. La MacBook Neo en Blush es la que lleva tiempo mirando.' },
   { q: '¿Qué recibo?', a: 'Tu logo como sticker físico en la tapa y un espacio en esta página con enlace a tu sitio o red social.' },
@@ -7,10 +9,20 @@ const faqs = [
   { q: '¿Hay reembolsos?', a: 'Los pagos por Nequi no se reembolsan automáticamente. Si hay un problema con tu reserva, escríbeme y lo resolvemos caso a caso.' },
   { q: '¿Aceptan cualquier logo?', a: 'Cada logo se aprueba manualmente. Me reservo el derecho de rechazar contenido ofensivo o inapropiado; en ese caso te contacto para cambiarlo o devolver el pago.' },
 ];
+const faqsEn = [
+  { q: 'Is this real?', a: 'Yes. The MacBook Neo in Blush is bought with the money raised, and every approved logo is printed as a sticker and placed on the real lid.' },
+  { q: 'Why this laptop?', a: 'Silenia is about to start studying and doesn’t have a computer yet. The MacBook Neo in Blush is the one she’s had her eye on for a while.' },
+  { q: 'What do I get?', a: 'Your logo as a physical sticker on the lid, plus a spot on this page linking to your site or social profile.' },
+  { q: 'How do I pay?', a: 'With Nequi (a Colombian payment app), at a fixed price in Colombian pesos (COP). Prices in USD are approximate. Then you submit the form with the receipt and your logo.' },
+  { q: 'Are there refunds?', a: 'Nequi payments are not refunded automatically. If there’s a problem with your reservation, message me and we’ll sort it out case by case.' },
+  { q: 'Do you accept any logo?', a: 'Every logo is approved manually. I reserve the right to reject offensive or inappropriate content; in that case I’ll contact you to change it or return your payment.' },
+];
+const lang = getLang(Astro);
+const faqs = lang === 'en' ? faqsEn : faqsEs;
 ---
 <section class="section" id="faq">
   <div class="container faq">
-    <h2 class="section-title center">Preguntas frecuentes.</h2>
+    <h2 class="section-title center">{lang === 'en' ? 'Frequently asked questions.' : 'Preguntas frecuentes.'}</h2>
     <div class="faq__list">
       {faqs.map((f) => (
         <details>

@@ -1,23 +1,39 @@
 ---
 import '../styles/global.css';
 import { asset } from '../data/proyecto.js';
+import { getLang, homePath } from '../i18n.js';
 
-const title = 'Brand My Neo — La primera MacBook de Silenia';
-const description = 'Le estoy comprando a Silenia su primera MacBook vendiendo espacios de sticker en la tapa. Consigue el tuyo.';
+const lang = getLang(Astro);
+const t = {
+  es: {
+    title: 'Brand My Neo — La primera MacBook de Silenia',
+    description: 'Le estoy comprando a Silenia su primera MacBook vendiendo espacios de sticker en la tapa. Consigue el tuyo.',
+  },
+  en: {
+    title: 'Brand My Neo — Silenia’s first MacBook',
+    description: 'I’m buying Silenia her first MacBook by selling sticker spots on the lid. Get yours.',
+  },
+}[lang];
 const ogImage = new URL(asset('/img/neo-lid.png'), Astro.site).href;
+const url = (l) => new URL(asset(homePath(l)), Astro.site).href;
 ---
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
+    <title>{t.title}</title>
+    <meta name="description" content={t.description} />
     <meta name="theme-color" content="#ffffff" />
     <link rel="icon" type="image/svg+xml" href={asset('/favicon.svg')} />
+    <link rel="canonical" href={url(lang)} />
+    <link rel="alternate" hreflang="es" href={url('es')} />
+    <link rel="alternate" hreflang="en" href={url('en')} />
+    <link rel="alternate" hreflang="x-default" href={url('es')} />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'es_CO'} />
+    <meta property="og:title" content={t.title} />
+    <meta property="og:description" content={t.description} />
     <meta property="og:image" content={ogImage} />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -26,5 +42,8 @@ const ogImage = new URL(asset('/img/neo-lid.png'), Astro.site).href;
   </head>
   <body>
     <slot />
+    <script>
+      import '../scripts/currency.ts';
+    </script>
   </body>
 </html>

@@ -23,12 +23,27 @@ export const LAYOUT = {
   hueco: { left: 40.5, right: 59.5 }, // zona protegida del logo (fila media)
 };
 
-const NOMBRES_FILA = { superior: 'Fila superior', media: 'Fila media', inferior: 'Fila inferior' };
-const NOMBRES_POS = {
-  superior: ['izquierda', 'centro', 'derecha'],
-  media: ['extremo izquierdo', 'junto al logo (izq.)', 'junto al logo (der.)', 'extremo derecho'],
-  inferior: ['izquierda', 'centro', 'derecha'],
+const NOMBRES = {
+  es: {
+    fila: { superior: 'Fila superior', media: 'Fila media', inferior: 'Fila inferior' },
+    pos: {
+      superior: ['izquierda', 'centro', 'derecha'],
+      media: ['extremo izquierdo', 'junto al logo (izq.)', 'junto al logo (der.)', 'extremo derecho'],
+      inferior: ['izquierda', 'centro', 'derecha'],
+    },
+  },
+  en: {
+    fila: { superior: 'Top row', media: 'Middle row', inferior: 'Bottom row' },
+    pos: {
+      superior: ['left', 'center', 'right'],
+      media: ['far left', 'next to the logo (left)', 'next to the logo (right)', 'far right'],
+      inferior: ['left', 'center', 'right'],
+    },
+  },
 };
+
+// Nombre legible de un spot en el idioma pedido, p. ej. "Fila superior · izquierda" / "Top row · left"
+export const nombreSpot = (s, lang = 'es') => `${NOMBRES[lang].fila[s.fila]} · ${NOMBRES[lang].pos[s.fila][s.posicion]}`;
 
 function rect(spot) {
   const { x0, x1, gap, filas, hueco } = LAYOUT;
@@ -52,7 +67,7 @@ function rect(spot) {
 export const spots = data.spots.map((s) => ({
   ...s,
   vendido: s.estado === 'vendido',
-  nombre: `${NOMBRES_FILA[s.fila]} · ${NOMBRES_POS[s.fila][s.posicion]}`,
+  nombre: nombreSpot(s, 'es'),
   rect: rect(s),
 }));
 

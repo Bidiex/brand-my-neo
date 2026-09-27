@@ -1,47 +1,100 @@
 ---
 import { NEQUI } from '../data/proyecto.js';
+import { getLang } from '../i18n.js';
+
+const lang = getLang(Astro);
+const t = {
+  es: {
+    close: 'Cerrar', eyebrow: 'Reservar spot', usdNote: 'el pago es en COP',
+    pay: 'Paga por Nequi', send1: 'Envía', send2: 'al número:', copy: 'Copiar',
+    keep: 'Guarda la captura del comprobante: la necesitas abajo.',
+    details: 'Envía tus datos', brand: 'Nombre o marca', link: 'Link de tu sitio o red social', email: 'Email de contacto',
+    receipt: 'Comprobante de pago Nequi', receiptHint: 'Captura de pantalla (JPG o PNG)',
+    logo: 'Tu logo', logoHint: 'PNG o SVG con fondo transparente',
+    choose: 'Elegir archivo', chooseShort: 'Elegir',
+    accept: 'Entiendo que cada logo se aprueba manualmente y que el pago no se reembolsa automáticamente.', terms: 'Ver condiciones',
+    submit: 'Enviar reserva',
+    doneTitle: '¡Recibido!',
+    done: 'Reviso tu comprobante y te escribo al email en cuanto confirme el pago. Cuando esté aprobado, tu logo aparece en la tapa de esta página y el sticker va a la MacBook de Silenia.',
+    thanks: 'Gracias por ser parte de esto.',
+  },
+  en: {
+    close: 'Close', eyebrow: 'Reserve a spot', usdNote: 'payment is in COP',
+    pay: 'Pay with Nequi', send1: 'Send', send2: 'to this Nequi number:', copy: 'Copy',
+    keep: 'Save a screenshot of the receipt: you’ll need it below.',
+    details: 'Send your details', brand: 'Name or brand', link: 'Link to your website or social profile', email: 'Contact email',
+    receipt: 'Nequi payment receipt', receiptHint: 'Screenshot (JPG or PNG)',
+    logo: 'Your logo', logoHint: 'PNG or SVG with a transparent background',
+    choose: 'Choose file', chooseShort: 'Choose',
+    accept: 'I understand that every logo is approved manually and that the payment isn’t refunded automatically.', terms: 'See terms',
+    submit: 'Send reservation',
+    doneTitle: 'Got it!',
+    done: 'I’ll check your receipt and email you as soon as I confirm the payment. Once it’s approved, your logo shows up on the lid on this page and the sticker goes on Silenia’s MacBook.',
+    thanks: 'Thanks for being part of this.',
+  },
+}[lang];
+
+// Textos que usa el script del cliente
+const js = {
+  es: {
+    copied: 'Copiado', copy: 'Copiar', change: 'Cambiar', choose: 'Elegir', sending: 'Enviando…', submit: 'Enviar reserva',
+    errFiles: 'Adjunta los dos archivos.', errFields: 'Revisa los campos marcados.',
+    errSize: 'Los archivos pesan demasiado (máx. 5 MB entre los dos). Prueba con imágenes más livianas.',
+    errInactive: 'El formulario todavía no está activo. Vuelve a intentarlo pronto.',
+    errSend: 'No se pudo enviar. Intenta de nuevo en un momento.',
+  },
+  en: {
+    copied: 'Copied', copy: 'Copy', change: 'Change', choose: 'Choose', sending: 'Sending…', submit: 'Send reservation',
+    errFiles: 'Please attach both files.', errFields: 'Please check the highlighted fields.',
+    errSize: 'The files are too large (5 MB max for both). Try lighter images.',
+    errInactive: 'The form isn’t active yet. Please try again soon.',
+    errSend: 'Couldn’t send it. Please try again in a moment.',
+  },
+}[lang];
 ---
-<dialog class="modal" id="spot-dialog" aria-labelledby="modal-title">
-  <button type="button" class="modal__close" data-close aria-label="Cerrar">×</button>
+<dialog class="modal" id="spot-dialog" aria-labelledby="modal-title" data-i18n={JSON.stringify(js)}>
+  <button type="button" class="modal__close" data-close aria-label={t.close}>×</button>
 
   <div class="modal__body" data-view="form">
-    <span class="eyebrow">Reservar spot</span>
+    <span class="eyebrow">{t.eyebrow}</span>
     <h2 id="modal-title" class="modal__title" data-fill="nombre">Spot</h2>
     <p class="modal__price"><span data-fill="precio"></span> COP</p>
+    <p class="modal__usd" data-cur="USD">≈ <span data-fill="usd"></span> · {t.usdNote}</p>
 
     <ol class="steps">
       <li>
-        <strong>Paga por Nequi</strong>
-        <p>Envía <b data-fill="precio"></b> al número:</p>
+        <strong>{t.pay}</strong>
+        <p>{t.send1} <b data-fill="precio"></b> COP {t.send2}</p>
         <div class="nequi">
           <span class="nequi__num">{NEQUI.replace(/(\d{3})(\d{3})(\d{4})/, '$1 $2 $3')}</span>
-          <button type="button" class="nequi__copy" data-copy={NEQUI}>Copiar</button>
+          <button type="button" class="nequi__copy" data-copy={NEQUI}>{t.copy}</button>
         </div>
-        <p class="hint">Guarda la captura del comprobante: la necesitas abajo.</p>
+        <p class="hint">{t.keep}</p>
       </li>
       <li>
-        <strong>Envía tus datos</strong>
+        <strong>{t.details}</strong>
         <form class="form" id="spot-form" novalidate>
           <input type="hidden" name="spot_id" />
           <input type="hidden" name="spot" />
           <input type="hidden" name="precio" />
+          <input type="hidden" name="idioma" value={lang} />
           <input type="checkbox" name="botcheck" class="visually-hidden" tabindex="-1" autocomplete="off" />
 
           <label>
-            <span>Nombre o marca</span>
+            <span>{t.brand}</span>
             <input type="text" name="marca" required maxlength="80" autocomplete="organization" />
           </label>
           <label>
-            <span>Link de tu sitio o red social</span>
+            <span>{t.link}</span>
             <input type="url" name="link" required placeholder="https://" />
           </label>
           <label>
-            <span>Email de contacto</span>
+            <span>{t.email}</span>
             <input type="email" name="email" required autocomplete="email" />
           </label>
           {[
-            { name: 'comprobante', label: 'Comprobante de pago Nequi', accept: 'image/*', hint: 'Captura de pantalla (JPG o PNG)' },
-            { name: 'logo', label: 'Tu logo', accept: 'image/png,image/svg+xml,image/jpeg,image/webp,application/pdf', hint: 'PNG o SVG con fondo transparente' },
+            { name: 'comprobante', label: t.receipt, accept: 'image/*', hint: t.receiptHint },
+            { name: 'logo', label: t.logo, accept: 'image/png,image/svg+xml,image/jpeg,image/webp,application/pdf', hint: t.logoHint },
           ].map((f) => (
             <div class="field">
               <span class="field__label" id={`${f.name}-label`}>{f.label}</span>
@@ -53,23 +106,23 @@ import { NEQUI } from '../data/proyecto.js';
                   <svg class="file__ok" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
                 </span>
                 <span class="file__text">
-                  <span class="file__name" data-empty="Elegir archivo">Elegir archivo</span>
+                  <span class="file__name" data-empty={t.choose}>{t.choose}</span>
                   <span class="file__hint" id={`${f.name}-hint`}>{f.hint}</span>
                 </span>
-                <span class="file__action" aria-hidden="true">Elegir</span>
+                <span class="file__action" aria-hidden="true">{t.chooseShort}</span>
               </div>
             </div>
           ))}
           <label class="check">
             <input type="checkbox" name="acepto" required />
             <span>
-              Entiendo que cada logo se aprueba manualmente y que el pago no se reembolsa automáticamente.
-              <a href="#faq">Ver condiciones</a>
+              {t.accept}
+              <a href="#faq">{t.terms}</a>
             </span>
           </label>
 
           <p class="form__error" role="alert" hidden></p>
-          <button type="submit" class="btn form__submit">Enviar reserva</button>
+          <button type="submit" class="btn form__submit">{t.submit}</button>
         </form>
       </li>
     </ol>
@@ -77,17 +130,16 @@ import { NEQUI } from '../data/proyecto.js';
 
   <div class="modal__body modal__done" data-view="done" hidden>
     <div class="done__icon" aria-hidden="true">✓</div>
-    <h2 class="modal__title">¡Recibido!</h2>
-    <p>
-      Reviso tu comprobante y te escribo al email en cuanto confirme el pago.
-      Cuando esté aprobado, tu logo aparece en la tapa de esta página y el sticker va a la MacBook de Silenia.
-    </p>
-    <p><strong>Gracias por ser parte de esto.</strong></p>
-    <button type="button" class="btn" data-close>Cerrar</button>
+    <h2 class="modal__title">{t.doneTitle}</h2>
+    <p>{t.done}</p>
+    <p><strong>{t.thanks}</strong></p>
+    <button type="button" class="btn" data-close>{t.close}</button>
   </div>
 </dialog>
 
 <script>
+  import { formatCOP, formatUSD } from '../scripts/currency.ts';
+
   // ⚙️ Web3Forms: genera tu Access Key gratis en https://web3forms.com y reemplaza este valor.
   const WEB3FORMS_ACCESS_KEY = 'TU_ACCESS_KEY_AQUI';
   const MAX_TOTAL_BYTES = 5 * 1024 * 1024; // límite total de adjuntos
@@ -100,7 +152,8 @@ import { NEQUI } from '../data/proyecto.js';
     form: dialog.querySelector('[data-view="form"]') as HTMLElement,
     done: dialog.querySelector('[data-view="done"]') as HTMLElement,
   };
-  const cop = (n: number) => '$' + n.toLocaleString('es-CO');
+  const T = JSON.parse(dialog.dataset.i18n!);
+  let precioActual = 0;
 
   function showView(name: 'form' | 'done') {
     views.form.hidden = name !== 'form';
@@ -113,17 +166,26 @@ import { NEQUI } from '../data/proyecto.js';
   }
 
   function open(btn: HTMLElement) {
-    const { spotId = '', spotNombre = '', spotPrecio = '0' } = btn.dataset;
-    const precio = cop(Number(spotPrecio));
+    const { spotId = '', spotNombre = '', spotRef = '', spotPrecio = '0' } = btn.dataset;
+    precioActual = Number(spotPrecio);
+    const precio = formatCOP(precioActual);
     dialog.querySelectorAll('[data-fill="nombre"]').forEach((el) => (el.textContent = spotNombre));
     dialog.querySelectorAll('[data-fill="precio"]').forEach((el) => (el.textContent = precio));
+    fillUSD();
     (form.elements.namedItem('spot_id') as HTMLInputElement).value = spotId;
-    (form.elements.namedItem('spot') as HTMLInputElement).value = spotNombre;
+    // el correo llega siempre con el nombre del spot en español
+    (form.elements.namedItem('spot') as HTMLInputElement).value = spotRef || spotNombre;
     (form.elements.namedItem('precio') as HTMLInputElement).value = precio + ' COP';
     showError('');
     showView('form');
     dialog.showModal();
   }
+
+  // Equivalente aproximado en USD (solo visible si el visitante eligió USD)
+  function fillUSD() {
+    dialog.querySelectorAll('[data-fill="usd"]').forEach((el) => (el.textContent = formatUSD(precioActual)));
+  }
+  document.addEventListener('currencychange', fillUSD);
 
   document.querySelectorAll<HTMLElement>('[data-spot-id]').forEach((btn) =>
     btn.addEventListener('click', () => open(btn))
@@ -144,7 +206,7 @@ import { NEQUI } from '../data/proyecto.js';
     const file = input.files?.[0];
     box.classList.toggle('is-filled', !!file);
     name.textContent = file ? file.name : name.dataset.empty!;
-    action.textContent = file ? 'Cambiar' : 'Elegir';
+    action.textContent = file ? T.change : T.choose;
   }
   fileInputs.forEach((input) => input.addEventListener('change', () => syncFile(input)));
   // form.reset() no dispara 'change': re-sincronizar después de que el reset termine
@@ -154,8 +216,8 @@ import { NEQUI } from '../data/proyecto.js';
     const btn = e.currentTarget as HTMLButtonElement;
     try {
       await navigator.clipboard.writeText(btn.dataset.copy!);
-      btn.textContent = 'Copiado';
-      setTimeout(() => (btn.textContent = 'Copiar'), 1800);
+      btn.textContent = T.copied;
+      setTimeout(() => (btn.textContent = T.copy), 1800);
     } catch {
       /* el número sigue visible para copiarlo a mano */
     }
@@ -168,18 +230,18 @@ import { NEQUI } from '../data/proyecto.js';
     if (!form.checkValidity()) {
       const invalid = form.querySelector(':invalid') as HTMLInputElement | null;
       invalid?.focus();
-      showError(invalid?.type === 'file' ? 'Adjunta los dos archivos.' : 'Revisa los campos marcados.');
+      showError(invalid?.type === 'file' ? T.errFiles : T.errFields);
       return;
     }
 
     const files = ['comprobante', 'logo'].map((n) => (form.elements.namedItem(n) as HTMLInputElement).files![0]);
     if (files.reduce((t, f) => t + f.size, 0) > MAX_TOTAL_BYTES) {
-      showError('Los archivos pesan demasiado (máx. 5 MB entre los dos). Prueba con imágenes más livianas.');
+      showError(T.errSize);
       return;
     }
 
     if (WEB3FORMS_ACCESS_KEY === 'TU_ACCESS_KEY_AQUI') {
-      showError('El formulario todavía no está activo. Vuelve a intentarlo pronto.');
+      showError(T.errInactive);
       return;
     }
 
@@ -190,7 +252,7 @@ import { NEQUI } from '../data/proyecto.js';
     data.set('acepto', 'Sí');
 
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Enviando…';
+    submitBtn.textContent = T.sending;
     try {
       const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: data });
       const json = await res.json();
@@ -198,10 +260,10 @@ import { NEQUI } from '../data/proyecto.js';
       form.reset();
       showView('done');
     } catch (err) {
-      showError('No se pudo enviar. Intenta de nuevo en un momento.' + (err instanceof Error && err.message ? ` (${err.message})` : ''));
+      showError(T.errSend + (err instanceof Error && err.message ? ` (${err.message})` : ''));
     } finally {
       submitBtn.disabled = false;
-      submitBtn.textContent = 'Enviar reserva';
+      submitBtn.textContent = T.submit;
     }
   });
 </script>
@@ -229,6 +291,7 @@ import { NEQUI } from '../data/proyecto.js';
   }
   .modal__title { font-size: 23px; }
   .modal__price { font-size: 18px; color: var(--rose); font-weight: 600; margin: 6px 0 0; }
+  .modal__usd { margin: 2px 0 0; font-size: 13px; color: var(--text-2); }
 
   .steps { margin: 28px 0 0; padding: 0; list-style: none; counter-reset: step; }
   /* El número va en línea con el título del paso; el contenido usa todo el ancho (sin sangría) */

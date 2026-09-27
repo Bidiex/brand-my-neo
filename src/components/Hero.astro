@@ -1,21 +1,38 @@
 ---
 import Perfil from './Perfil.astro';
-import { meta, recaudado, porcentaje, vendidos, spots, cop } from '../data/proyecto.js';
+import Money from './Money.astro';
+import { meta, recaudado, porcentaje, vendidos, spots } from '../data/proyecto.js';
+import { getLang } from '../i18n.js';
+
+const t = {
+  es: {
+    sold: 'spots vendidos', available: 'disponibles', goal: 'Meta',
+    title: 'Ella quiere empezar<br />a estudiar.',
+    lead: 'Le estoy comprando a Silenia su primera MacBook vendiendo espacios de sticker en la tapa. Consigue el tuyo.',
+    progress: 'Progreso de la recaudación', raised: 'recaudados', of: 'de',
+  },
+  en: {
+    sold: 'spots sold', available: 'available', goal: 'Goal',
+    title: 'She wants to start<br />studying.',
+    lead: 'I’m buying Silenia her first MacBook by selling sticker spots on the lid. Get yours.',
+    progress: 'Fundraising progress', raised: 'raised', of: 'of',
+  },
+}[getLang(Astro)];
 ---
 <section class="hero" id="top">
   <div class="container center">
     <p class="hero__stats">
-      <b>{vendidos.length}/{spots.length}</b> spots vendidos<i>•</i><b>{spots.length - vendidos.length}</b> disponibles<i>•</i>Meta <b>{cop(meta)}</b> COP
+      <b>{vendidos.length}/{spots.length}</b> {t.sold}<i>•</i><b>{spots.length - vendidos.length}</b> {t.available}<i>•</i>{t.goal} <b><Money value={meta} code /></b>
     </p>
-    <h1 class="hero__title">Ella quiere empezar<br />a estudiar.</h1>
+    <h1 class="hero__title" set:html={t.title} />
     <p class="section-lead hero__lead">
-      Le estoy comprando a Silenia su primera MacBook vendiendo espacios de sticker en la tapa. Consigue el tuyo.
+      {t.lead}
     </p>
 
-    <div class="progress" aria-label="Progreso de la recaudación">
+    <div class="progress" aria-label={t.progress}>
       <div class="progress__row">
-        <p class="progress__raised"><strong>{cop(recaudado)}</strong> recaudados</p>
-        <p class="progress__goal">de {cop(meta)} COP<span>·</span><b>{porcentaje}%</b></p>
+        <p class="progress__raised"><strong><Money value={recaudado} /></strong> {t.raised}</p>
+        <p class="progress__goal">{t.of} <Money value={meta} code /><span>·</span><b>{porcentaje}%</b></p>
       </div>
       <div class="progress__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow={porcentaje}>
         <div class="progress__fill" style={`width:${porcentaje}%`}></div>

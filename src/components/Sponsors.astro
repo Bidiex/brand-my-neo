@@ -1,15 +1,23 @@
 ---
-import { vendidos, cop, asset } from '../data/proyecto.js';
+import Money from './Money.astro';
+import { vendidos, asset, nombreSpot } from '../data/proyecto.js';
+import { getLang } from '../i18n.js';
+
+const lang = getLang(Astro);
+const t = {
+  es: { eyebrow: 'Auspiciadores', title: 'Quienes ya están en la tapa.', empty: 'Todavía no hay nadie aquí.<br />El primer logo en la tapa puede ser el tuyo.', cta: 'Consigue un spot' },
+  en: { eyebrow: 'Sponsors', title: 'Already on the lid.', empty: 'Nobody here yet.<br />The first logo on the lid could be yours.', cta: 'Get a spot' },
+}[lang];
 ---
 <section class="section" id="auspiciadores">
   <div class="container center">
-    <span class="eyebrow">Auspiciadores</span>
-    <h2 class="section-title">Quienes ya están en la tapa.</h2>
+    <span class="eyebrow">{t.eyebrow}</span>
+    <h2 class="section-title">{t.title}</h2>
 
     {vendidos.length === 0 ? (
       <div class="empty">
-        <p>Todavía no hay nadie aquí.<br />El primer logo en la tapa puede ser el tuyo.</p>
-        <a class="btn" href="#spots">Consigue un spot</a>
+        <p set:html={t.empty} />
+        <a class="btn" href="#spots">{t.cta}</a>
       </div>
     ) : (
       <ul class="sponsors">
@@ -22,7 +30,7 @@ import { vendidos, cop, asset } from '../data/proyecto.js';
                   {s.logoUrl ? <img src={asset(s.logoUrl)} alt={s.nombreAuspiciador} loading="lazy" /> : <span>{s.nombreAuspiciador}</span>}
                 </div>
                 <strong>{s.nombreAuspiciador}</strong>
-                <span class="sponsor__meta">{s.nombre} · {cop(s.precio)}</span>
+                <span class="sponsor__meta">{nombreSpot(s, lang)} · <Money value={s.precio} /></span>
               </Tag>
             </li>
           );

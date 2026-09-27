@@ -1,11 +1,25 @@
 ---
 import { INSTAGRAM_URL, INSTAGRAM_HANDLE } from '../data/proyecto.js';
+import { getLang } from '../i18n.js';
+
+const t = {
+  es: {
+    inspired: 'Inspirado en', follow: 'Sigue el proceso en',
+    manual: 'La aprobación de cada auspiciador es manual. Los pagos por Nequi no se reembolsan automáticamente.',
+    legal: 'Brand My Neo no está afiliado, respaldado ni patrocinado por Apple Inc. MacBook Neo y Mac son marcas de Apple Inc. Imágenes del producto: Apple Newsroom.',
+  },
+  en: {
+    inspired: 'Inspired by', follow: 'Follow along at',
+    manual: 'Every sponsor is approved manually. Nequi payments are not refunded automatically.',
+    legal: 'Brand My Neo is not affiliated with, endorsed or sponsored by Apple Inc. MacBook Neo and Mac are trademarks of Apple Inc. Product images: Apple Newsroom.',
+  },
+}[getLang(Astro)];
 ---
 <footer class="footer">
   <div class="container">
-    <p>Inspirado en <a href="https://brandmymac.com" target="_blank" rel="noopener">brandmymac.com</a>. Sigue el proceso en <a href={INSTAGRAM_URL} target="_blank" rel="noopener">{INSTAGRAM_HANDLE}</a>.</p>
-    <p>La aprobación de cada auspiciador es manual. Los pagos por Nequi no se reembolsan automáticamente.</p>
-    <p>Brand My Neo no está afiliado, respaldado ni patrocinado por Apple Inc. MacBook Neo y Mac son marcas de Apple Inc. Imágenes del producto: Apple Newsroom.</p>
+    <p>{t.inspired} <a href="https://brandmymac.com" target="_blank" rel="noopener">brandmymac.com</a>. {t.follow} <a href={INSTAGRAM_URL} target="_blank" rel="noopener">{INSTAGRAM_HANDLE}</a>.</p>
+    <p>{t.manual}</p>
+    <p>{t.legal}</p>
   </div>
 </footer>
 

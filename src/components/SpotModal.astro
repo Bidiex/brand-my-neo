@@ -231,14 +231,16 @@ import { NEQUI } from '../data/proyecto.js';
   .modal__price { font-size: 18px; color: var(--rose); font-weight: 600; margin: 6px 0 0; }
 
   .steps { margin: 28px 0 0; padding: 0; list-style: none; counter-reset: step; }
-  .steps > li { counter-increment: step; position: relative; padding-left: 42px; margin-bottom: 26px; }
+  /* El número va en línea con el título del paso; el contenido usa todo el ancho (sin sangría) */
+  .steps > li { counter-increment: step; position: relative; margin-bottom: 28px; }
   .steps > li::before {
-    content: counter(step); position: absolute; left: 0; top: -2px;
+    content: counter(step); position: absolute; left: 0; top: 0;
     width: 28px; height: 28px; border-radius: 50%;
     background: var(--blush-soft); color: var(--rose); font-weight: 600; font-size: 15px;
     display: grid; place-items: center;
   }
-  .steps strong { font-size: 15px; }
+  .steps > li > strong { display: block; padding-left: 38px; font-size: 16px; line-height: 28px; }
+  .steps > li > p:first-of-type { margin-top: 10px; }
   .steps p { margin: 6px 0 0; color: var(--text-2); font-size: 14px; }
   .steps .hint { font-size: 13px; }
 
@@ -306,7 +308,6 @@ import { NEQUI } from '../data/proyecto.js';
 
   @media (max-width: 480px) {
     .modal__body { padding: 28px 20px 24px; }
-    .steps > li { padding-left: 38px; }
     /* en mobile toda la caja es el botón: el pill "Elegir/Cambiar" solo le quita espacio al nombre */
     .file { padding: 10px 12px; gap: 10px; }
     .file__action { display: none; }

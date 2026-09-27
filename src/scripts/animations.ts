@@ -94,17 +94,6 @@ function sections() {
   reveal($('.footer p'), { y: 12, stagger: 0.06 });
 }
 
-// Barra de progreso de lectura bajo el header
-function progressLine() {
-  const bar = document.createElement('div');
-  bar.className = 'scroll-progress';
-  document.querySelector('.header')?.appendChild(bar);
-  gsap.fromTo(bar, { scaleX: 0 }, {
-    scaleX: 1, ease: 'none',
-    scrollTrigger: { start: 0, end: 'max', scrub: 0.3 },
-  });
-}
-
 // FAQ: abrir y cerrar con altura animada en vez del salto nativo
 function faq() {
   $<HTMLDetailsElement>('.faq__list details').forEach((d) => {
@@ -138,7 +127,6 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
   intro();
   spots();
   sections();
-  progressLine();
   faq();
   buttons();
   // Las imágenes lazy cambian la altura de la página: recalcular posiciones

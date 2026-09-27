@@ -1,7 +1,8 @@
 // Datos fijos del proyecto + helpers. El estado de los spots vive en spots.json.
 import data from './spots.json';
 
-export const NEQUI = '3008836295';
+// Llave Bre-B (sistema de pagos inmediatos del Banco de la República): el celular de Silenia
+export const LLAVE_BREB = '3008836295';
 export const INSTAGRAM_URL = 'https://www.instagram.com/sileniacamargom_';
 export const INSTAGRAM_HANDLE = '@sileniacamargom_';
 

@@ -1,15 +1,15 @@
 ---
-import { NEQUI } from '../data/proyecto.js';
+import { LLAVE_BREB } from '../data/proyecto.js';
 import { getLang } from '../i18n.js';
 
 const lang = getLang(Astro);
 const t = {
   es: {
     close: 'Cerrar', eyebrow: 'Reservar spot', usdNote: 'el pago es en COP',
-    pay: 'Paga por Nequi', send1: 'Envía', send2: 'al número:', copy: 'Copiar',
-    keep: 'Guarda la captura del comprobante: la necesitas abajo.',
+    pay: 'Paga por Bre-B', send1: 'Envía', send2: 'a esta llave Bre-B (celular):', copy: 'Copiar',
+    keep: 'Hazlo desde la app de tu banco o billetera; antes de confirmar verás el nombre de la titular (Silenia Camargo). Guarda la captura del comprobante: la necesitas abajo.',
     details: 'Envía tus datos', brand: 'Nombre o marca', link: 'Link de tu sitio o red social', email: 'Email de contacto',
-    receipt: 'Comprobante de pago Nequi', receiptHint: 'Captura de pantalla (JPG o PNG)',
+    receipt: 'Comprobante de la transferencia', receiptHint: 'Captura de pantalla (JPG o PNG)',
     logo: 'Tu logo', logoHint: 'PNG o SVG con fondo transparente',
     choose: 'Elegir archivo', chooseShort: 'Elegir',
     accept: 'Entiendo que cada logo se aprueba manualmente y que el pago no se reembolsa automáticamente.', terms: 'Ver condiciones',
@@ -20,10 +20,10 @@ const t = {
   },
   en: {
     close: 'Close', eyebrow: 'Reserve a spot', usdNote: 'payment is in COP',
-    pay: 'Pay with Nequi', send1: 'Send', send2: 'to this Nequi number:', copy: 'Copy',
-    keep: 'Save a screenshot of the receipt: you’ll need it below.',
+    pay: 'Pay with Bre-B', send1: 'Send', send2: 'to this Bre-B key (phone number):', copy: 'Copy',
+    keep: 'Use your Colombian bank or wallet app; before you confirm, it shows the account holder’s name (Silenia Camargo). Save a screenshot of the receipt: you’ll need it below.',
     details: 'Send your details', brand: 'Name or brand', link: 'Link to your website or social profile', email: 'Contact email',
-    receipt: 'Nequi payment receipt', receiptHint: 'Screenshot (JPG or PNG)',
+    receipt: 'Transfer receipt', receiptHint: 'Screenshot (JPG or PNG)',
     logo: 'Your logo', logoHint: 'PNG or SVG with a transparent background',
     choose: 'Choose file', chooseShort: 'Choose',
     accept: 'I understand that every logo is approved manually and that the payment isn’t refunded automatically.', terms: 'See terms',
@@ -65,9 +65,9 @@ const js = {
       <li>
         <strong>{t.pay}</strong>
         <p>{t.send1} <b data-fill="precio"></b> COP {t.send2}</p>
-        <div class="nequi">
-          <span class="nequi__num">{NEQUI.replace(/(\d{3})(\d{3})(\d{4})/, '$1 $2 $3')}</span>
-          <button type="button" class="nequi__copy" data-copy={NEQUI}>{t.copy}</button>
+        <div class="llave">
+          <span class="llave__num">{LLAVE_BREB.replace(/(\d{3})(\d{3})(\d{4})/, '$1 $2 $3')}</span>
+          <button type="button" class="llave__copy" data-copy={LLAVE_BREB}>{t.copy}</button>
         </div>
         <p class="hint">{t.keep}</p>
       </li>
@@ -307,12 +307,12 @@ const js = {
   .steps p { margin: 6px 0 0; color: var(--text-2); font-size: 14px; }
   .steps .hint { font-size: 13px; }
 
-  .nequi {
+  .llave {
     display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px;
     margin-top: 10px; padding: 12px 16px; border-radius: 14px; background: var(--bg-alt);
   }
-  .nequi__num { font-size: 19px; font-weight: 600; letter-spacing: 0.02em; font-variant-numeric: tabular-nums; }
-  .nequi__copy {
+  .llave__num { font-size: 19px; font-weight: 600; letter-spacing: 0.02em; font-variant-numeric: tabular-nums; }
+  .llave__copy {
     border: 0; background: #fff; color: var(--rose); font: inherit; font-size: 14px; font-weight: 500;
     padding: 6px 14px; border-radius: 99px; cursor: pointer;
   }

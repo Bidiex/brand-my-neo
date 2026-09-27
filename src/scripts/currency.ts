@@ -1,5 +1,5 @@
 // Selector de moneda COP / USD. Todo precio marcado con <Money> (clase .money, data-cop) se reescribe aquí.
-// El pago siempre es en COP por Nequi: USD es solo una referencia aproximada.
+// El pago siempre es en COP por Bre-B: USD es solo una referencia aproximada.
 
 export type Currency = 'COP' | 'USD';
 

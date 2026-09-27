@@ -41,11 +41,19 @@ const url = (l) => new URL(asset(homePath(l)), Astro.site).href;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- Oculta el hero hasta que GSAP prepare la entrada (evita un parpadeo); si el JS falla, se muestra a los 2 s -->
+    <script is:inline>
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('anim-pending');
+        setTimeout(function () { document.documentElement.classList.remove('anim-pending'); }, 2000);
+      }
+    </script>
   </head>
   <body>
     <slot />
     <script>
       import '../scripts/currency.ts';
+      import '../scripts/animations.ts';
     </script>
   </body>
 </html>

@@ -100,6 +100,17 @@ h1, h2, h3 { margin: 0; letter-spacing: -0.03em; line-height: 1.08; font-weight:
   * { transition: none !important; animation: none !important; }
 }
 
+/* Animaciones (ver src/scripts/animations.ts) */
+main { overflow-x: clip; } /* las entradas laterales no generan scroll horizontal */
+.anim-pending .header__inner,
+.anim-pending .hero .container { visibility: hidden; }
+.scroll-progress {
+  position: absolute; left: 0; right: 0; bottom: -1px; height: 2px;
+  background: linear-gradient(90deg, var(--blush), var(--rose));
+  transform-origin: left center; transform: scaleX(0);
+  pointer-events: none;
+}
+
 /* Textos que dependen de la moneda elegida (ver src/scripts/currency.ts) */
 html:not([data-currency="USD"]) [data-cur="USD"],
 html[data-currency="USD"] [data-cur="COP"] { display: none; }

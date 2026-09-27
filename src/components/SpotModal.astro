@@ -195,6 +195,15 @@ const js = {
     const target = e.target as HTMLElement;
     // clic en el backdrop o en un botón de cerrar
     if (target === dialog || target.closest('[data-close]')) dialog.close();
+
+    // "Ver condiciones": cerrar el modal y luego bajar al FAQ
+    // (al cerrar, el foco vuelve al spot; por eso el scroll va después)
+    const faqLink = target.closest<HTMLAnchorElement>('a[href="#faq"]');
+    if (faqLink) {
+      e.preventDefault();
+      dialog.close();
+      requestAnimationFrame(() => document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' }));
+    }
   });
 
   // Inputs de archivo: mostrar el nombre elegido en la caja personalizada

@@ -212,7 +212,7 @@ import { NEQUI } from '../data/proyecto.js';
   .steps .hint { font-size: 13px; }
 
   .nequi {
-    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px;
     margin-top: 10px; padding: 12px 16px; border-radius: 14px; background: var(--bg-alt);
   }
   .nequi__num { font-size: 19px; font-weight: 600; letter-spacing: 0.02em; font-variant-numeric: tabular-nums; }
@@ -221,8 +221,10 @@ import { NEQUI } from '../data/proyecto.js';
     padding: 6px 14px; border-radius: 99px; cursor: pointer;
   }
 
-  .form { display: grid; gap: 14px; margin-top: 14px; }
-  .form label { display: grid; gap: 6px; font-size: 14px; font-weight: 500; }
+  /* minmax(0, 1fr) + min-width: 0: sin esto, el ancho intrínseco de los input de archivo ensancha el modal en mobile */
+  .form { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; margin-top: 14px; }
+  .form label { display: grid; gap: 6px; min-width: 0; font-size: 14px; font-weight: 500; }
+  .form input { min-width: 0; max-width: 100%; }
   .form label em { font-style: normal; font-weight: 400; color: var(--text-2); }
   .form input[type="text"], .form input[type="url"], .form input[type="email"] {
     font: inherit; font-size: 16px; padding: 11px 14px;
@@ -232,7 +234,7 @@ import { NEQUI } from '../data/proyecto.js';
   .form input[type="file"] {
     font: inherit; font-size: 14px; padding: 10px; border: 1px dashed var(--line); border-radius: 12px; background: var(--bg-alt);
   }
-  .form .check { grid-template-columns: auto 1fr; align-items: start; gap: 10px; font-weight: 400; color: var(--text-2); }
+  .form .check { grid-template-columns: auto minmax(0, 1fr); align-items: start; gap: 10px; font-weight: 400; color: var(--text-2); }
   .form .check input { margin-top: 3px; accent-color: var(--rose); }
   .form__error { margin: 0; color: #c0392b; font-size: 14px; }
   .form__submit { width: 100%; margin-top: 4px; }

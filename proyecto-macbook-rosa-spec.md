@@ -75,7 +75,7 @@ Esto es el corazón emocional del sitio — es lo que reemplaza la "audiencia ya
 **Datos para usar en el copy / footer / sección de contacto:**
 - Nombre: Silenia Camargo
 - Instagram: [@sileniacamargom_](https://www.instagram.com/sileniacamargom_)
-- Motivo: va a empezar a estudiar y actualmente no tiene ordenador
+- Motivo (actualizado): ya es profesional y quiere seguir formándose con cursos de análisis de datos, metodologías ágiles, Scrum y gestión de proyectos; para hacerlos bien necesita un computador propio. (El draft original decía que iba a empezar su carrera: no es así.)
 - Modelo específico que le gusta: MacBook Neo, color Blush (rosa)
 
 Claude Code no debe inventar más detalles biográficos de Silenia más allá de estos — si el copy final necesita más color (ej. qué va a estudiar), eso lo añade Vosstra directamente, no se debe suponer.
@@ -87,7 +87,7 @@ Claude Code no debe inventar más detalles biográficos de Silenia más allá de
 Réplica simplificada de brandmymac.com — una sola página larga (single-page) con anclas, no rutas separadas:
 
 1. **Header** — logo/nombre del proyecto ("Brand My Neo"), nav con anclas (`#spots`, `#como-funciona`, `#la-maquina`, `#faq`), CTA "Consigue un spot"
-2. **Hero** — titular "Ella quiere empezar a estudiar." (ver draft completo en sección 3.2), contador de recaudado vs. meta ($4.500.000 COP)
+2. **Hero** — titular "Quiero seguir aprendiendo." (antes "Ella quiere empezar a estudiar.") (ver draft completo en sección 3.2), contador de recaudado vs. meta ($4.500.000 COP)
 3. **Grid interactivo de spots** — imagen real de la tapa de la MacBook Neo rosa con overlay de 10 zonas clickeables en 3 filas, logo de Apple protegido en el centro (ver sección 3.1 para precios exactos y sección 6.2 para implementación). A diferencia del original, no hay toggle Tapa/Interior salvo que se decida vender spots de interior/accesorios también (ver checklist, sección 9)
 4. **Grid de auspiciadores** — logos de quienes ya compraron spot, con su precio pagado y link a su sitio (mismo patrón que el original)
 5. **Cómo funciona** — 3 pasos (elige spot → paga por Bre-B y sube comprobante → tu sticker se pone en la laptop), adaptado del original

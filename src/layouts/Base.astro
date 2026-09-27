@@ -6,12 +6,12 @@ import { getLang, homePath } from '../i18n.js';
 const lang = getLang(Astro);
 const t = {
   es: {
-    title: 'Brand My Neo — La primera MacBook de Silenia',
-    description: 'Le estoy comprando a Silenia su primera MacBook vendiendo espacios de sticker en la tapa. Consigue el tuyo.',
+    title: 'Brand My Neo — Mi primera MacBook, por Silenia Camargo',
+    description: 'Estoy financiando mi primera MacBook vendiendo espacios de sticker en su tapa. Consigue el tuyo.',
   },
   en: {
-    title: 'Brand My Neo — Silenia’s first MacBook',
-    description: 'I’m buying Silenia her first MacBook by selling sticker spots on the lid. Get yours.',
+    title: 'Brand My Neo — My first MacBook, by Silenia Camargo',
+    description: 'I’m funding my first MacBook by selling sticker spots on its lid. Get yours.',
   },
 }[lang];
 const ogImage = new URL(asset('/img/neo-lid.png'), Astro.site).href;

@@ -54,6 +54,8 @@ Nota para Claude Code: este layout es más simple que el mapa "orgánico" del or
 
 ### 3.2 La historia (copy de referencia, primera persona)
 
+> **Actualización:** el copy final del sitio está escrito en primera persona **desde la voz de Silenia** (ella es quien habla y quien impulsa el proyecto), no desde la de Vosstra. El draft de abajo queda como referencia histórica; el texto vigente vive en los componentes (`Hero.astro`, `Historia.astro`, etc.).
+
 Esto es el corazón emocional del sitio — es lo que reemplaza la "audiencia ya construida" que tenía Vincent en el original. El texto está escrito en primera persona (voz de Vosstra), estilo Apple: frases cortas, directas, sin exceso de adjetivos. Claude Code puede usarlo casi tal cual en el hero/sección "por qué esto", o Vosstra puede ajustarlo antes de publicar.
 
 **Draft del hero / historia:**

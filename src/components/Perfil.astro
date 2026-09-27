@@ -13,11 +13,11 @@ const NOMBRE = 'Silenia Camargo';
 const t = {
   es: {
     sub: 'Soy la futura dueña de esta tapa', igLabel: `Mi Instagram: ${NOMBRE}`,
-    cardTitle: 'Quién está detrás', quote: 'Un buen computador es la herramienta que me falta para seguir creciendo.',
+    cardTitle: 'Quién está detrás',
   },
   en: {
     sub: 'I’m the future owner of this lid', igLabel: `My Instagram: ${NOMBRE}`,
-    cardTitle: 'Who’s behind this', quote: 'A good computer is the one tool I’m missing to keep growing.',
+    cardTitle: 'Who’s behind this',
   },
 }[getLang(Astro)];
 ---
@@ -50,7 +50,6 @@ const t = {
         </a>
       </div>
     </div>
-    <blockquote class="card__quote">{t.quote}</blockquote>
   </aside>
 )}
 
@@ -92,8 +91,4 @@ const t = {
     transition: border-color .2s;
   }
   .pill:hover { border-color: #d62976; text-decoration: none; }
-  .card__quote {
-    margin: 16px 0 0; padding-left: 12px; border-left: 2px solid var(--line);
-    font-size: 15px; color: var(--text);
-  }
 </style>

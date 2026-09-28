@@ -6,8 +6,8 @@ const lang = getLang(Astro);
 const t = {
   es: {
     eyebrow: 'Ya la conocí',
-    title: 'La vi, la probé<br />y ahora es la meta.',
-    lead: 'Fui a la tienda a verla en persona. Spoiler: el rosa es todavía más bonito de cerca.',
+    title: 'La vi, la probé<br />y ahora es la meta 😍',
+    lead: 'Fui a la tienda a verla en persona. Spoiler: el rosa es más bonito de cerca.',
     open: 'Ampliar foto',
     close: 'Cerrar',
     fotos: [
@@ -19,8 +19,8 @@ const t = {
   },
   en: {
     eyebrow: 'We’ve met',
-    title: 'I saw it, I tried it,<br />now it’s the goal.',
-    lead: 'I went to the store to see it in person. Spoiler: the pink looks even better up close.',
+    title: 'I saw it, I tried it,<br />now it’s the goal 😍',
+    lead: 'I went to the store to see it in person. Spoiler: the pink is prettier up close.',
     open: 'Enlarge photo',
     close: 'Close',
     fotos: [
@@ -52,9 +52,8 @@ const fotos = t.fotos.map((caption, i) => ({
         <li class="galeria__item">
           <figure class="galeria__card">
             <button class="galeria__foto" type="button" aria-label={`${t.open}: ${f.caption}`} data-index={i}>
-              <img src={f.src} srcset={f.srcset} sizes="(max-width: 834px) 46vw, 240px" width="800" height="1067" alt={`Silenia Camargo — ${f.caption}`} loading="lazy" decoding="async" />
+              <img src={f.src} srcset={f.srcset} sizes="(max-width: 834px) 68vw, 240px" width="800" height="1067" alt={`Silenia Camargo — ${f.caption}`} loading="lazy" decoding="async" />
             </button>
-            <figcaption><span>{String(i + 1).padStart(2, '0')}</span>{f.caption}</figcaption>
           </figure>
         </li>
       ))}
@@ -64,13 +63,12 @@ const fotos = t.fotos.map((caption, i) => ({
   <div class="lightbox" role="dialog" aria-modal="true" aria-label={t.eyebrow} hidden>
     <div class="lightbox__bg"></div>
     <div class="lightbox__stage"></div>
-    <p class="lightbox__caption"></p>
     <button class="lightbox__close" type="button" aria-label={t.close}>✕</button>
   </div>
 </section>
 
 <style>
-  .galeria-section { background: var(--blush-soft); overflow: hidden; }
+  .galeria-section { overflow: hidden; }
   .galeria {
     position: relative; list-style: none; margin: 56px 0 0; padding: 0;
     display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
@@ -89,18 +87,12 @@ const fotos = t.fotos.map((caption, i) => ({
   .galeria__foto:hover { transform: translateY(-8px) rotate(-1deg); box-shadow: 0 28px 50px -20px rgba(120, 40, 60, .55); }
   .galeria__foto:focus-visible { outline: 3px solid var(--rose); outline-offset: 4px; }
   .galeria__foto img { width: 100%; height: 100%; object-fit: cover; }
-  .galeria__card figcaption {
-    display: flex; gap: 8px; align-items: baseline;
-    margin-top: 14px; font-size: 14px; font-weight: 500; color: var(--text);
-  }
-  .galeria__card figcaption span { color: var(--rose); font-size: 12px; font-weight: 700; font-variant-numeric: tabular-nums; }
 
   .lightbox { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; }
   .lightbox[hidden] { display: none; }
   .lightbox__bg { position: absolute; inset: 0; background: rgba(29, 12, 18, .82); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
   .lightbox__stage { position: relative; display: grid; place-items: center; width: min(92vw, calc(80vh * .75)); aspect-ratio: 3 / 4; }
   .lightbox__stage img { width: 100%; height: 100%; object-fit: cover; border-radius: 22px; cursor: zoom-out; }
-  .lightbox__caption { position: absolute; bottom: 3vh; left: 0; right: 0; margin: 0; text-align: center; color: #fff; font-size: 15px; font-weight: 500; }
   .lightbox__close {
     position: absolute; top: 16px; right: 16px; width: 44px; height: 44px; border: 0; border-radius: 50%;
     background: rgba(255, 255, 255, .16); color: #fff; font-size: 18px; cursor: pointer;
@@ -108,9 +100,15 @@ const fotos = t.fotos.map((caption, i) => ({
   .lightbox__close:hover { background: rgba(255, 255, 255, .28); }
 
   @media (max-width: 834px) {
-    .galeria { grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 40px; }
-    .galeria__item:nth-child(even) { margin-top: 36px; }
-    .galeria__card figcaption { font-size: 13px; margin-top: 10px; }
+    /* Móvil: una sola fila horizontal. Con GSAP se fija la sección y la fila corre con el scroll
+       (ver galeria() en animations.ts); sin animaciones queda como carrusel deslizable con el dedo */
+    .galeria {
+      display: flex; gap: 14px; margin: 40px -22px 0; padding: 0 22px 12px;
+      overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+    }
+    .galeria::-webkit-scrollbar { display: none; }
+    .galeria__item { flex: 0 0 68vw; max-width: 320px; scroll-snap-align: center; }
+    .galeria__item:nth-child(even) { margin-top: 28px; }
   }
 </style>
 
@@ -123,7 +121,6 @@ const fotos = t.fotos.map((caption, i) => ({
 
   const box = document.querySelector<HTMLElement>('.lightbox');
   const stage = box?.querySelector<HTMLElement>('.lightbox__stage');
-  const caption = box?.querySelector<HTMLElement>('.lightbox__caption');
   const bg = box?.querySelector<HTMLElement>('.lightbox__bg');
   const closeBtn = box?.querySelector<HTMLButtonElement>('.lightbox__close');
   const reduce = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -138,12 +135,11 @@ const fotos = t.fotos.map((caption, i) => ({
     document.body.style.overflow = 'hidden';
     img.sizes = '92vw';
     stage.appendChild(img);
-    caption!.textContent = home.closest('figure')?.querySelector('figcaption')?.lastChild?.textContent ?? '';
     current = { img, home };
     const d = reduce() ? 0 : 1;
     Flip.from(state, { duration: 0.7 * d, ease: 'power3.inOut', zIndex: 2 });
     gsap.fromTo(bg, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4 * d });
-    gsap.fromTo([caption, closeBtn], { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.4 * d, delay: 0.35 * d, stagger: 0.05 });
+    gsap.fromTo(closeBtn, { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.4 * d, delay: 0.35 * d });
     closeBtn!.focus({ preventScroll: true });
   }
 
@@ -152,7 +148,7 @@ const fotos = t.fotos.map((caption, i) => ({
     const { img, home } = current;
     current = null;
     const d = reduce() ? 0 : 1;
-    gsap.to([caption, closeBtn], { autoAlpha: 0, duration: 0.2 * d });
+    gsap.to(closeBtn, { autoAlpha: 0, duration: 0.2 * d });
     gsap.to(bg, { autoAlpha: 0, duration: 0.5 * d });
     // Vuela de vuelta encima de su hueco sin salir del overlay (el botón recortaría la foto con overflow)
     Flip.fit(img, home, {
@@ -160,7 +156,7 @@ const fotos = t.fotos.map((caption, i) => ({
       onComplete: () => {
         home.appendChild(img);
         gsap.set(img, { clearProps: 'all' });
-        img.sizes = '(max-width: 834px) 46vw, 240px';
+        img.sizes = '(max-width: 834px) 68vw, 240px';
         box.hidden = true;
         document.body.style.overflow = '';
         home.focus({ preventScroll: true });

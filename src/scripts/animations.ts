@@ -72,8 +72,6 @@ function sections() {
     });
   }
 
-  galeria();
-
   reveal('.empty > *');
   reveal('.sponsors > li', { y: 20, scale: 0.96 });
   reveal('.paso', { stagger: 0.12 });
@@ -95,12 +93,10 @@ function sections() {
   reveal($('.footer p'), { y: 12, stagger: 0.06 });
 }
 
-// Galería: las fotos arrancan apiladas como un montón de polaroids en el centro
+// Galería, escritorio: las fotos arrancan apiladas como un montón de polaroids en el centro
 // y se reparten a su sitio mientras se hace scroll; luego cada columna sube a su ritmo
-function galeria() {
-  const grid = document.querySelector<HTMLElement>('.galeria');
-  const items = $('.galeria__item');
-  if (!grid || !items.length) return;
+function galeriaAbanico(grid: HTMLElement) {
+  const items = $('.galeria__item', grid);
   const giro = [-9, 6, -4, 11];
   // offsetLeft/Top ignoran los transforms: la medida no cambia si se recalcula con las fotos ya apiladas
   const alCentro = (el: HTMLElement, eje: 'x' | 'y') =>
@@ -118,14 +114,41 @@ function galeria() {
     scrollTrigger: { trigger: grid, start: 'top 90%', end: 'top 30%', scrub: 0.8, invalidateOnRefresh: true },
   });
 
-  $('.galeria__card').forEach((card, i) => {
+  $('.galeria__card', grid).forEach((card, i) => {
     gsap.to(card, {
       y: i % 2 ? -36 : -12, ease: 'none',
       scrollTrigger: { trigger: grid, start: 'top 30%', end: 'bottom top', scrub: true },
     });
   });
+}
 
-  reveal($('.galeria__card figcaption'), { y: 10, stagger: 0.1 }, grid);
+// Galería, móvil: la sección se queda fija y la fila de fotos corre en horizontal con el scroll;
+// cada foto entra desde la derecha algo girada y pequeña y se endereza al llegar al centro
+function galeriaHorizontal(grid: HTMLElement) {
+  const items = $('.galeria__item', grid);
+  const last = items[items.length - 1];
+  const pad = parseFloat(getComputedStyle(grid).paddingLeft);
+  const distancia = () => last.offsetLeft + last.offsetWidth + pad - grid.clientWidth;
+
+  // Sin el scroll nativo del carrusel: ahora lo mueve GSAP
+  gsap.set(grid, { overflow: 'visible', scrollSnapType: 'none' });
+
+  const fila = gsap.to(grid, {
+    x: () => -distancia(), ease: 'none',
+    scrollTrigger: {
+      trigger: '.galeria-section', start: 'center center', end: () => '+=' + distancia(),
+      pin: true, scrub: 0.6, invalidateOnRefresh: true,
+      // Se crea después que los triggers de más abajo: refrescarlo primero para que cuenten su espacio
+      refreshPriority: 1,
+    },
+  });
+
+  items.forEach((item, i) => {
+    gsap.from(item, {
+      rotation: i % 2 ? -6 : 6, scale: 0.86, ease: 'none',
+      scrollTrigger: { trigger: item, containerAnimation: fila, start: 'left right', end: 'center center', scrub: true },
+    });
+  });
 }
 
 // FAQ: abrir y cerrar con altura animada en vez del salto nativo
@@ -165,6 +188,13 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
   buttons();
   // Las imágenes lazy cambian la altura de la página: recalcular posiciones
   window.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
+});
+mm.add({ motion: '(prefers-reduced-motion: no-preference)', mobile: '(max-width: 834px)' }, (ctx) => {
+  const grid = document.querySelector<HTMLElement>('.galeria');
+  const { motion, mobile } = ctx.conditions!;
+  if (!grid || !motion) return;
+  if (mobile) galeriaHorizontal(grid);
+  else galeriaAbanico(grid);
 });
 mm.add('(prefers-reduced-motion: reduce)', () => {
   document.documentElement.classList.remove('anim-pending');

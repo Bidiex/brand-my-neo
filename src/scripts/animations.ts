@@ -72,6 +72,8 @@ function sections() {
     });
   }
 
+  galeria();
+
   reveal('.empty > *');
   reveal('.sponsors > li', { y: 20, scale: 0.96 });
   reveal('.paso', { stagger: 0.12 });
@@ -91,6 +93,39 @@ function sections() {
 
   reveal('.faq__list > details', { y: 16, stagger: 0.06 });
   reveal($('.footer p'), { y: 12, stagger: 0.06 });
+}
+
+// Galería: las fotos arrancan apiladas como un montón de polaroids en el centro
+// y se reparten a su sitio mientras se hace scroll; luego cada columna sube a su ritmo
+function galeria() {
+  const grid = document.querySelector<HTMLElement>('.galeria');
+  const items = $('.galeria__item');
+  if (!grid || !items.length) return;
+  const giro = [-9, 6, -4, 11];
+  // offsetLeft/Top ignoran los transforms: la medida no cambia si se recalcula con las fotos ya apiladas
+  const alCentro = (el: HTMLElement, eje: 'x' | 'y') =>
+    eje === 'x'
+      ? grid.clientWidth / 2 - (el.offsetLeft + el.offsetWidth / 2)
+      : grid.clientHeight / 2 - (el.offsetTop + el.offsetHeight / 2);
+
+  gsap.from(items, {
+    x: (_i, el) => alCentro(el, 'x'),
+    y: (_i, el) => alCentro(el, 'y'),
+    rotation: (i) => giro[i % giro.length],
+    scale: 0.82,
+    ease: 'power2.out',
+    stagger: 0.04,
+    scrollTrigger: { trigger: grid, start: 'top 90%', end: 'top 30%', scrub: 0.8, invalidateOnRefresh: true },
+  });
+
+  $('.galeria__card').forEach((card, i) => {
+    gsap.to(card, {
+      y: i % 2 ? -36 : -12, ease: 'none',
+      scrollTrigger: { trigger: grid, start: 'top 30%', end: 'bottom top', scrub: true },
+    });
+  });
+
+  reveal($('.galeria__card figcaption'), { y: 10, stagger: 0.1 }, grid);
 }
 
 // FAQ: abrir y cerrar con altura animada en vez del salto nativo
